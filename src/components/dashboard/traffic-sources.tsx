@@ -19,9 +19,9 @@ const SOURCE_META: Record<
   tiktok: { label: "TikTok", domain: "tiktok.com", color: "#010101" },
   skool: { label: "Skool", domain: "skool.com", color: "#F5C518" },
   google: { label: "Google", domain: "google.com", color: "#4285F4" },
-  email: { label: "Email", domain: "mail.google.com", color: "#D44638" },
-  direct: { label: "Direct", domain: "linkfig.app", color: "#6B7280" },
-  other: { label: "Other", domain: "globe.gov", color: "#9CA3AF" },
+  email: { label: "Correo", domain: "mail.google.com", color: "#D44638" },
+  direct: { label: "Directo", domain: "linkaminegocio.com", color: "#6B7280" },
+  other: { label: "Otro", domain: "globe.gov", color: "#9CA3AF" },
 };
 
 const FALLBACK_COLOR = "#D1D5DB";
@@ -51,13 +51,13 @@ export function TrafficSources({ viewsBySource }: Props) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Traffic Sources</CardTitle>
-          <CardDescription>All-time totals since your profile was created.</CardDescription>
+          <CardTitle>Fuentes de Tráfico</CardTitle>
+          <CardDescription>Totales acumulados desde que creaste tu perfil.</CardDescription>
         </CardHeader>
         <CardContent>
           <p className="text-sm text-muted-foreground">
-            No traffic data yet. Share your profile to start seeing where your
-            visitors come from.
+            Aún no hay datos de tráfico. Comparte tu perfil para empezar a ver
+            de dónde vienen tus visitantes.
           </p>
         </CardContent>
       </Card>
@@ -98,8 +98,8 @@ export function TrafficSources({ viewsBySource }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Traffic Sources</CardTitle>
-        <CardDescription>All-time totals since your profile was created.</CardDescription>
+        <CardTitle>Fuentes de Tráfico</CardTitle>
+        <CardDescription>Totales acumulados desde que creaste tu perfil.</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
@@ -141,7 +141,7 @@ export function TrafficSources({ viewsBySource }: Props) {
                 textAnchor="middle"
                 className="fill-muted-foreground text-xs"
               >
-                views
+                visitas
               </text>
             </svg>
           </div>

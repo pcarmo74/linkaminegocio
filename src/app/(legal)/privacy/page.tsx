@@ -7,72 +7,78 @@ export default function PrivacyPage() {
         href="/"
         className="text-sm text-muted-foreground hover:text-primary"
       >
-        &larr; Back to home
+        &larr; Volver al inicio
       </Link>
 
       <article className="prose dark:prose-invert mt-8 max-w-none">
-        <h1>Privacy Policy</h1>
+        <h1>Política de Privacidad</h1>
         <p className="text-sm text-muted-foreground">
-          Last updated: March 16, 2026
+          Última actualización: 4 de septiembre de 2026
         </p>
 
-        <h2>1. Introduction</h2>
+        <h2>1. Introducción</h2>
         <p>
-          Your privacy is important to us. This Privacy Policy explains how we
-          collect, use, disclose, and safeguard your information when you use our
-          service.
+          Tu privacidad es importante para nosotros. Esta Política de
+          Privacidad explica cómo Biz Solutions Partner recopila, usa,
+          divulga y protege tu información cuando usas LinkaMiNegocio.
         </p>
 
-        <h2>2. Information We Collect</h2>
+        <h2>2. Información que Recopilamos</h2>
         <p>
-          We collect information you provide directly to us, such as your name,
-          email address, and payment information. We also automatically collect
-          certain information about your device and usage of the service.
+          Recopilamos información que nos proporcionas directamente, como tu
+          nombre y dirección de correo electrónico. También recopilamos
+          automáticamente cierta información sobre tu dispositivo y el uso
+          del servicio.
         </p>
 
-        <h2>3. How We Use Your Information</h2>
+        <h2>3. Cómo Usamos tu Información</h2>
         <p>
-          We use the information we collect to provide and maintain the service,
-          process transactions, send you related communications, and improve our
-          platform. We may also use your information for analytics and to
-          personalize your experience.
+          Usamos la información que recopilamos para proporcionar y mantener
+          el servicio, enviarte comunicaciones relacionadas y mejorar
+          nuestra plataforma. También podemos usar tu información para
+          análisis y personalizar tu experiencia.
         </p>
 
-        <h2>4. Data Storage</h2>
+        <h2>4. Almacenamiento de Datos</h2>
         <p>
-          Your data is stored on secure servers and protected using
-          industry-standard encryption. We retain your personal information only
-          for as long as necessary to fulfill the purposes outlined in this
-          policy.
+          Tus datos se almacenan en servidores de Firebase (Google Cloud) y
+          están protegidos mediante encriptación estándar de la industria.
+          Conservamos tu información personal solo durante el tiempo
+          necesario para cumplir los propósitos descritos en esta política.
         </p>
 
-        <h2>5. Third-Party Services</h2>
+        <h2>5. Servicios de Terceros</h2>
         <p>
-          We may employ third-party companies and services to facilitate our
-          service, provide the service on our behalf, or assist us in analyzing
-          how our service is used. These third parties have access to your
-          information only to perform tasks on our behalf.
+          Empleamos Firebase (Google Cloud) para operar y almacenar los
+          datos de la plataforma. Estos terceros tienen acceso a tu
+          información solo para realizar tareas en nuestro nombre.
         </p>
 
-        <h2>6. Your Rights</h2>
+        <h2>6. Tus Derechos</h2>
         <p>
-          Depending on your jurisdiction, you may have the right to access,
-          correct, or delete your personal data. You may also have the right to
-          object to or restrict certain processing of your data. Reach out via
-          the in-app chat to exercise these rights.
+          De acuerdo con la Ley 1581 de 2012 (Habeas Data) de Colombia,
+          tienes derecho a conocer, actualizar y rectificar tus datos
+          personales; a solicitar prueba de la autorización otorgada; a ser
+          informado sobre el uso de tus datos; a presentar quejas ante la
+          Superintendencia de Industria y Comercio (SIC); a revocar tu
+          autorización y/o solicitar la eliminación de tus datos; y a
+          acceder de forma gratuita a tus datos personales. Contáctanos en
+          contact@bizsolutionspartner.com para ejercer estos derechos.
         </p>
 
-        <h2>7. Changes to This Policy</h2>
+        <h2>7. Cambios a esta Política</h2>
         <p>
-          We may update this Privacy Policy from time to time. We will notify
-          you of any changes by posting the new policy on this page and updating
-          the date at the top.
+          Podemos actualizar esta Política de Privacidad de vez en cuando.
+          Te notificaremos sobre cualquier cambio publicando la nueva
+          política en esta página y actualizando la fecha en la parte
+          superior.
         </p>
 
-        <h2>8. Contact</h2>
+        <h2>8. Contacto</h2>
         <p>
-          If you have any questions about this Privacy Policy, please reach out
-          via the in-app chat. Our support team is available there to help.
+          Si tienes preguntas sobre esta Política de Privacidad, contáctanos
+          en contact@bizsolutionspartner.com. Nuestro equipo de soporte está
+          disponible para ayudarte.
         </p>
       </article>
     </div>

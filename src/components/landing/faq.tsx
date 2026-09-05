@@ -6,46 +6,76 @@ import { cn } from "@/lib/utils";
 
 const faqs = [
   {
-    question: "Is LinkFig really free?",
+    question: "¿LinkaMiNegocio es realmente gratis?",
     answer:
-      "Yes, completely. LinkFig is free — unlimited links, custom themes, analytics, email capture, QR codes and more. No credit card required, no hidden fees, no paywalls. Every feature that Linktree charges $8-35/month for is free here.",
+      "Sí, completamente. LinkaMiNegocio es gratis — enlaces ilimitados, temas personalizados, analítica, captura de correos, códigos QR y más. Sin tarjeta de crédito, sin cargos ocultos, sin muros de pago.",
   },
   {
-    question: "What makes LinkFig better than Linktree?",
+    question: "¿Qué hace mejor a LinkaMiNegocio que Linktree?",
     answer:
-      "The biggest difference is price: LinkFig gives you every premium feature for free. Custom themes, custom fonts, email capture, analytics, QR codes — all of it. No tiered pricing, no feature gates, no monthly bills. Plus, LinkFig is open-source, so you can see exactly how it works.",
+      "La mayor diferencia es el precio: LinkaMiNegocio te da todas las funciones premium gratis. Temas, fuentes, captura de correos, analítica, códigos QR — todo incluido. Sin planes por niveles, sin funciones bloqueadas, sin cobros mensuales.",
   },
   {
-    question: "Can I collect emails from my profile visitors?",
+    question: "¿Puedo recopilar correos de quienes visitan mi perfil?",
     answer:
-      "Absolutely! Enable email capture from your Appearance settings and add a custom message. Visitors can subscribe right from your profile page. You can view all subscribers in your dashboard and export them as a CSV anytime — a feature Linktree charges $8/month for.",
+      "¡Claro que sí! Activa la captura de correos desde tu configuración de Apariencia y agrega un mensaje personalizado. Tus visitantes pueden suscribirse directamente desde tu página de perfil. Puedes ver todos tus suscriptores en tu panel y exportarlos como CSV cuando quieras.",
   },
   {
-    question: "How many links can I add?",
+    question: "¿Cuántos enlaces puedo agregar?",
     answer:
-      "Unlimited. There's no cap on the number of links you can add to your LinkFig profile. You can reorder them with drag-and-drop and toggle individual links on or off.",
+      "Ilimitados. No hay límite en la cantidad de enlaces que puedes agregar a tu perfil de LinkaMiNegocio. Puedes reordenarlos arrastrándolos y activar o desactivar cada uno.",
   },
   {
-    question: "Can I customize how my profile looks?",
+    question: "¿Puedo personalizar cómo se ve mi perfil?",
     answer:
-      "Yes! Choose from 9 built-in themes (from minimal to neobrutalist), pick from 8 custom fonts, upload a profile photo, and write a custom bio. Your profile is fully yours to customize.",
+      "¡Sí! Elige entre 9 temas y 8 fuentes prediseñadas, sube una foto de perfil y escribe tu propia biografía. Encuentra la combinación que mejor represente a tu negocio.",
   },
   {
-    question: "Do I need a website to use LinkFig?",
+    question: "¿Necesito un sitio web para usar LinkaMiNegocio?",
     answer:
-      "Not at all. LinkFig acts as your mini-website — a beautiful, mobile-first profile page where you share everything you do online. If you already have a website, just add it as one of your links.",
+      "Para nada. LinkaMiNegocio funciona como tu mini sitio web — una página de perfil bonita y pensada para móviles donde compartes todo lo que haces. Si ya tienes un sitio web, solo agrégalo como uno de tus enlaces.",
   },
   {
-    question: "Is LinkFig safe to use on my social media?",
+    question: "¿Es seguro usar LinkaMiNegocio en mis redes sociales?",
     answer:
-      "Yes. LinkFig generates clean, fast-loading profile pages with proper SEO meta tags and social sharing previews. Your LinkFig URL works perfectly in Instagram, TikTok, Twitter, YouTube and any other platform's bio field.",
+      "Sí. LinkaMiNegocio genera páginas de perfil limpias y de carga rápida, con las etiquetas SEO correctas y vistas previas para compartir en redes. Tu URL de LinkaMiNegocio funciona perfectamente en Instagram, TikTok, Twitter, YouTube y cualquier otra plataforma.",
   },
   {
-    question: "How do I share my LinkFig?",
+    question: "¿Cómo comparto mi LinkaMiNegocio?",
     answer:
-      "Add your unique LinkFig URL (yourdomain.com/u/yourname) to all of your social media bios. You can also generate a QR code from your dashboard to drive offline traffic to your profile.",
+      "Agrega tu URL única de LinkaMiNegocio (linkaminegocio.com/u/tunombre) a todas tus biografías de redes sociales. También puedes generar un código QR desde tu panel para atraer tráfico fuera de línea a tu perfil.",
+  },
+  {
+    question: "¿Por qué crearon LinkaMiNegocio?",
+    answer:
+      "LinkaMiNegocio nació como parte de un esfuerzo más grande para ayudar a reactivar la economía colombiana después del terremoto de agosto de 2026. Por eso es y será gratis para todos los negocios en Colombia, estén o no en una zona directamente afectada — sabemos que las consecuencias se sintieron mucho más allá de las zonas de mayor devastación.",
+  },
+  {
+    question: "¿Cómo puedo apoyar a los negocios colombianos si no estoy en Colombia?",
+    answer:
+      "LinkaMiNegocio es gratis para todos, en cualquier país. Si tu negocio está fuera de Colombia y quieres apoyar directamente a los negocios que se están recuperando del terremoto, puedes patrocinar a un negocio real a través de Reopen Colombia — cada aporte llega directamente al dueño del negocio. www.reopencolombia.com",
   },
 ];
+
+const URL_PATTERN = /(https?:\/\/[^\s]+|www\.[^\s]+)/g;
+
+function renderAnswer(text: string) {
+  return text.split(URL_PATTERN).map((part, i) =>
+    /^(https?:\/\/|www\.)/.test(part) ? (
+      <a
+        key={i}
+        href={part.startsWith("http") ? part : `https://${part}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline underline-offset-4 hover:text-foreground"
+      >
+        {part}
+      </a>
+    ) : (
+      part
+    ),
+  );
+}
 
 export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -54,7 +84,7 @@ export function FAQ() {
     <section id="faq" className="px-5 py-24">
       <div className="container mx-auto max-w-2xl">
         <h2 className="font-heading text-center text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-          Questions? Answered.
+          ¿Preguntas? Aquí las respuestas.
         </h2>
 
         <div className="mt-12 divide-y">
@@ -84,7 +114,7 @@ export function FAQ() {
               >
                 <div className="overflow-hidden">
                   <p className="text-sm leading-relaxed text-muted-foreground">
-                    {answer}
+                    {renderAnswer(answer)}
                   </p>
                 </div>
               </div>

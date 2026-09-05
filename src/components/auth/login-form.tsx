@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { FirebaseError } from "firebase/app";
 import { signInWithEmail } from "@/lib/firebase/auth";
 import {
   Card,
@@ -15,6 +16,27 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+
+function getLoginErrorMessage(err: unknown): string {
+  if (err instanceof FirebaseError) {
+    switch (err.code) {
+      case "auth/wrong-password":
+      case "auth/invalid-credential":
+        return "Correo electrónico o contraseña incorrectos.";
+      case "auth/user-not-found":
+        return "No existe una cuenta con este correo electrónico.";
+      case "auth/invalid-email":
+        return "El correo electrónico no es válido.";
+      case "auth/too-many-requests":
+        return "Demasiados intentos. Por favor, intenta de nuevo más tarde.";
+      case "auth/user-disabled":
+        return "Esta cuenta ha sido deshabilitada.";
+      default:
+        return "No se pudo iniciar sesión.";
+    }
+  }
+  return "No se pudo iniciar sesión.";
+}
 
 export function LoginForm() {
   const router = useRouter();
@@ -37,9 +59,7 @@ export function LoginForm() {
       });
       router.push("/dashboard");
     } catch (err) {
-      const message =
-        err instanceof Error ? err.message : "Failed to sign in.";
-      setError(message);
+      setError(getLoginErrorMessage(err));
     } finally {
       setLoading(false);
     }
@@ -48,19 +68,19 @@ export function LoginForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Log In</CardTitle>
+        <CardTitle>Iniciar Sesión</CardTitle>
         <CardDescription>
-          Enter your email and password to access your account.
+          Ingresa tu correo electrónico y contraseña para acceder a tu cuenta.
         </CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">Correo electrónico</Label>
             <Input
               id="email"
               type="email"
-              placeholder="you@example.com"
+              placeholder="tucorreo@ejemplo.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -68,18 +88,18 @@ export function LoginForm() {
           </div>
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">Contraseña</Label>
               <Link
                 href="/forgot-password"
                 className="text-xs text-muted-foreground underline"
               >
-                Forgot password?
+                ¿Olvidaste tu contraseña?
               </Link>
             </div>
             <Input
               id="password"
               type="password"
-              placeholder="Enter your password"
+              placeholder="Ingresa tu contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -91,12 +111,12 @@ export function LoginForm() {
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading ? "Signing in..." : "Sign In"}
+            {loading ? "Iniciando sesión..." : "Iniciar Sesión"}
           </Button>
           <p className="text-sm text-muted-foreground text-center">
-            Don&apos;t have an account?{" "}
+            ¿No tienes una cuenta?{" "}
             <Link href="/signup" className="text-primary underline">
-              Sign up
+              Regístrate
             </Link>
           </p>
         </CardFooter>

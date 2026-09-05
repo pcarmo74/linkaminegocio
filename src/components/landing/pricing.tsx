@@ -2,26 +2,26 @@ import { CTALink } from "@/components/landing/cta-link";
 import { Check } from "lucide-react";
 
 const FREE_FEATURES = [
-  "Unlimited links",
-  "9 custom themes",
-  "8 custom fonts",
-  "Click + view analytics",
-  "Email capture & subscriber list",
-  "QR code generator",
-  "Drag-and-drop reordering",
-  "Custom avatar & bio",
-  "Mobile-first profile page",
-  "SEO + social sharing meta",
-  "CSV subscriber export",
-  "Dark / light / system mode",
+  "Enlaces ilimitados",
+  "9 temas",
+  "8 fuentes",
+  "Analítica de clics y visitas",
+  "Captura de correos y lista de suscriptores",
+  "Generador de códigos QR",
+  "Reordena tus enlaces arrastrándolos",
+  "Foto de perfil y biografía personalizadas",
+  "Página de perfil optimizada para móviles",
+  "SEO y vistas previas para redes sociales",
+  "Exporta tus suscriptores en CSV",
+  "Modo oscuro / claro / automático",
 ];
 
 const LINKTREE_PAID = [
-  { feature: "Remove branding", price: "$8/mo" },
-  { feature: "Email capture", price: "$8/mo" },
-  { feature: "Custom themes", price: "$8/mo" },
-  { feature: "Analytics", price: "$15/mo" },
-  { feature: "Custom fonts", price: "$15/mo" },
+  { feature: "Quitar la marca de Linktree", price: "$8/mes" },
+  { feature: "Captura de correos", price: "$8/mes" },
+  { feature: "Temas personalizados", price: "$8/mes" },
+  { feature: "Analítica", price: "$15/mes" },
+  { feature: "Fuentes personalizadas", price: "$15/mes" },
 ];
 
 export function Pricing() {
@@ -30,11 +30,11 @@ export function Pricing() {
       <div className="container mx-auto max-w-5xl">
         <div className="text-center">
           <h2 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-            Free.
+            Gratis.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
-            Every Linktree paid feature, free in LinkFig. No catches, no
-            credit card, no limits.
+            Todo lo que Linktree cobra, gratis en LinkaMiNegocio. Sin trucos,
+            sin tarjeta de crédito, sin límites.
           </p>
         </div>
 
@@ -42,13 +42,13 @@ export function Pricing() {
           {/* LinkFig card */}
           <div className="flex flex-col rounded-3xl border-2 border-[#D2E823] bg-[#D2E823]/5 p-8">
             <div className="mb-6">
-              <h3 className="font-heading text-2xl font-bold">LinkFig</h3>
+              <h3 className="font-heading text-2xl font-bold">LinkaMiNegocio</h3>
               <p className="mt-1 text-sm text-muted-foreground">
-                Everything you need in one link
+                Todo lo que necesitas en un solo enlace
               </p>
               <div className="mt-4">
                 <span className="font-heading text-5xl font-bold">$0</span>
-                <span className="ml-1 text-muted-foreground">/forever</span>
+                <span className="ml-1 text-muted-foreground">/para siempre</span>
               </div>
             </div>
             <ul className="flex-1 space-y-3">
@@ -63,7 +63,7 @@ export function Pricing() {
               href="/signup"
               className="mt-8 inline-flex w-full items-center justify-center rounded-xl bg-[#1E2330] px-8 py-3 text-sm font-semibold text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
             >
-              Claim your LinkFig
+              Reclama tu LinkaMiNegocio
             </CTALink>
           </div>
 
@@ -74,13 +74,13 @@ export function Pricing() {
                 Linktree
               </h3>
               <p className="mt-1 text-sm text-muted-foreground">
-                Same features, but paid
+                Las mismas funciones, pero de pago
               </p>
               <div className="mt-4">
                 <span className="font-heading text-5xl font-bold text-muted-foreground">
                   $8–35
                 </span>
-                <span className="ml-1 text-muted-foreground">/month</span>
+                <span className="ml-1 text-muted-foreground">/mes</span>
               </div>
             </div>
             <ul className="flex-1 space-y-3">
@@ -97,7 +97,7 @@ export function Pricing() {
               ))}
             </ul>
             <div className="mt-8 rounded-xl border border-border bg-muted/50 px-8 py-3 text-center text-sm font-medium text-muted-foreground">
-              Why pay when it&apos;s free?
+              ¿Para qué pagar si es gratis?
             </div>
           </div>
         </div>

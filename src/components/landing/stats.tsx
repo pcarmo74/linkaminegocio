@@ -15,17 +15,17 @@ interface Card {
 const cards: Card[] = [
   {
     Illustration: ShareCardIllustration,
-    title: "Share every type of content in limitless ways",
+    title: "Comparte todo lo de tu negocio, sin límites",
     bg: "bg-[#E9C0E9]",
   },
   {
     Illustration: MonetizeCardIllustration,
-    title: "Collect emails, tips and make monetization simple",
+    title: "Recopila correos y haz crecer tus ventas fácilmente",
     bg: "bg-[#D2E823]",
   },
   {
     Illustration: GrowCardIllustration,
-    title: "Grow, own and engage your audience across all channels",
+    title: "Haz crecer tu negocio y conecta con tus clientes en todos tus canales",
     bg: "bg-[#FFD966]",
   },
 ];

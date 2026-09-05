@@ -90,7 +90,7 @@ export default function LinksPage() {
 
   async function handleDelete(linkId: string) {
     if (!user) return;
-    if (!confirm("Delete this link?")) return;
+    if (!confirm("¿Eliminar este enlace?")) return;
     await deleteLink(user.uid, linkId);
     await refresh();
   }
@@ -160,24 +160,23 @@ export default function LinksPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight">Links</h2>
+          <h2 className="text-2xl font-bold tracking-tight">Enlaces</h2>
           <p className="text-muted-foreground">
-            Add, edit, and reorder the links on your public profile.
+            Agrega, edita y reordena los enlaces de tu perfil público.
           </p>
         </div>
         <Button onClick={openAdd}>
           <Plus className="mr-1 h-4 w-4" />
-          Add link
+          Agregar enlace
         </Button>
       </div>
 
       {loading ? (
-        <p className="text-muted-foreground">Loading...</p>
+        <p className="text-muted-foreground">Cargando...</p>
       ) : links.length === 0 ? (
         <div className="rounded-lg border border-dashed p-10 text-center">
           <p className="text-muted-foreground">
-            No links yet. Click <strong>Add link</strong> to create your first
-            one.
+            Aún no hay enlaces. Haz clic en <strong>Agregar enlace</strong> para crear el primero.
           </p>
         </div>
       ) : (

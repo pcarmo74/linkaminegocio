@@ -86,13 +86,13 @@ export default function DashboardPage() {
   }
 
   if (authLoading || loading) {
-    return <p className="text-muted-foreground">Loading...</p>;
+    return <p className="text-muted-foreground">Cargando...</p>;
   }
 
   if (!profile?.username) {
     return (
       <p className="text-muted-foreground">
-        Your account is missing a username. Please contact support.
+        A tu cuenta le falta un nombre de usuario. Por favor, contacta a soporte.
       </p>
     );
   }
@@ -104,17 +104,17 @@ export default function DashboardPage() {
     <div className="space-y-6">
       <div>
         <h2 className="text-2xl font-bold tracking-tight">
-          Welcome back, {profile.displayName || profile.username}
+          Bienvenido de nuevo, {profile.displayName || profile.username}
         </h2>
         <p className="text-muted-foreground">
-          Here&apos;s how your LinkFig profile is performing.
+          Así es como está funcionando tu perfil de LinkaMiNegocio.
         </p>
       </div>
 
       {/* Share card */}
       <Card>
         <CardHeader>
-          <CardTitle>Your LinkFig URL</CardTitle>
+          <CardTitle>Tu URL de LinkaMiNegocio</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <code className="truncate rounded bg-muted px-3 py-2 text-sm">
@@ -123,14 +123,14 @@ export default function DashboardPage() {
           <div className="flex gap-2">
             <Button variant="outline" onClick={handleCopy}>
               <Copy className="mr-1 h-4 w-4" />
-              {copied ? "Copied!" : "Copy"}
+              {copied ? "¡Copiado!" : "Copiar"}
             </Button>
             <Button variant="outline" onClick={() => setQrOpen(true)}>
               <QrCode className="mr-1 h-4 w-4" />
-              QR code
+              Código QR
             </Button>
             <Button render={<a href={`/u/${profile.username}`} target="_blank" rel="noreferrer" />}>
-              View profile
+              Ver perfil
             </Button>
           </div>
         </CardContent>
@@ -140,7 +140,7 @@ export default function DashboardPage() {
       <div className="grid gap-4 sm:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total views</CardTitle>
+            <CardTitle className="text-sm font-medium">Visitas totales</CardTitle>
             <Eye className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -150,7 +150,7 @@ export default function DashboardPage() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total clicks</CardTitle>
+            <CardTitle className="text-sm font-medium">Clics totales</CardTitle>
             <MousePointerClick className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -175,12 +175,12 @@ export default function DashboardPage() {
       {/* Per-link counts with source breakdown */}
       <Card>
         <CardHeader>
-          <CardTitle>Clicks by link</CardTitle>
+          <CardTitle>Clics por enlace</CardTitle>
         </CardHeader>
         <CardContent>
           {links.length === 0 ? (
             <p className="text-sm text-muted-foreground">
-              No links yet. Add some on the Links page.
+              Aún no hay enlaces. Agrega algunos en la página de Enlaces.
             </p>
           ) : (() => {
             const allSources = Array.from(
@@ -196,7 +196,7 @@ export default function DashboardPage() {
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b text-left text-xs text-muted-foreground">
-                      <th className="pb-2 pr-4 font-medium">Link</th>
+                      <th className="pb-2 pr-4 font-medium">Enlace</th>
                       <th className="pb-2 pr-3 text-right font-medium">
                         Total
                       </th>
@@ -245,21 +245,22 @@ export default function DashboardPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Zap className="h-5 w-5" />
-            Routing Performance
+            Rendimiento del Enrutamiento
           </CardTitle>
         </CardHeader>
         <CardContent>
           {routingRows.length === 0 ? (
             <p className="text-sm text-muted-foreground">
-              No routing data yet. Set up Smart Routing on your links to see
-              how visitors from different sources interact with your profile.
+              Aún no hay datos de enrutamiento. Configura el Enrutamiento
+              Inteligente en tus enlaces para ver cómo interactúan tus
+              visitantes según su origen.
             </p>
           ) : (
             <div className="space-y-1">
               <div className="grid grid-cols-4 gap-2 border-b pb-2 text-xs font-medium text-muted-foreground">
-                <span>Source</span>
-                <span className="text-right">Views</span>
-                <span className="text-right">Avg pos</span>
+                <span>Fuente</span>
+                <span className="text-right">Visitas</span>
+                <span className="text-right">Pos. prom.</span>
                 <span className="text-right">CTR</span>
               </div>
               {routingRows.map((row) => (
@@ -278,7 +279,7 @@ export default function DashboardPage() {
                 </div>
               ))}
               <p className="mt-2 text-xs text-muted-foreground">
-                Last 30 days
+                Últimos 30 días
               </p>
             </div>
           )}

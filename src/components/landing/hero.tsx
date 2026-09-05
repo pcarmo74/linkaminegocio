@@ -25,15 +25,15 @@ export function Hero() {
         {/* Left column — text + form */}
         <div className="flex-1 text-center lg:text-left">
           <h1 className="font-heading text-5xl font-bold leading-[1.05] tracking-tight text-[#1E2330] sm:text-6xl md:text-7xl lg:text-[5.5rem]">
-            A link in bio{" "}
+            Un enlace,{" "}
             <br className="hidden sm:block" />
-            built for you.
+            hecho para tu negocio.
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-lg text-[#1E2330]/80 md:text-xl lg:mx-0">
-            Join creators, influencers and small businesses using LinkFig for
-            their link in bio. One link to help you share everything you create,
-            curate and sell online — completely free.
+            Únete a los negocios y emprendedores que usan LinkaMiNegocio para
+            su enlace en bio. Un solo enlace para compartir todo lo que
+            ofreces — completamente gratis.
           </p>
 
           <form
@@ -42,13 +42,13 @@ export function Hero() {
           >
             <div className="flex flex-1 items-center rounded-xl bg-white px-4 py-3 shadow-sm">
               <span className="mr-1 text-sm font-medium text-[#1E2330]/50">
-                linkfig.app/
+                linkaminegocio.com/
               </span>
               <input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="yourname"
+                placeholder="tunegocio"
                 className="min-w-0 flex-1 bg-transparent text-sm font-medium text-[#1E2330] outline-none placeholder:text-[#1E2330]/30"
               />
             </div>
@@ -56,12 +56,12 @@ export function Hero() {
               type="submit"
               className="rounded-xl bg-[#1E2330] px-8 py-3 text-sm font-semibold text-white transition-transform hover:scale-[1.02] active:scale-[0.98]"
             >
-              Claim your LinkFig
+              Reclama tu LinkaMiNegocio
             </button>
           </form>
 
           <p className="mt-4 text-sm text-[#1E2330]/60">
-            Free &middot; No credit card required
+            Gratis &middot; Sin tarjeta de crédito
           </p>
         </div>
 

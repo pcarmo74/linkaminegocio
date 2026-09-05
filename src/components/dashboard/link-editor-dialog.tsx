@@ -16,6 +16,7 @@ import {
   ICON_OPTIONS,
   LinkIcon,
   detectIconFromUrl,
+  isPhoneBasedIcon,
   type IconKey,
 } from "@/lib/link-icons";
 import type { LinkDoc } from "@/types";
@@ -54,36 +55,62 @@ export function LinkEditorDialog({
   }, [open, initial]);
 
   const detected = detectIconFromUrl(url);
+  const isPhoneOnly = isPhoneBasedIcon(iconKey);
 
   async function handleSave(e: React.FormEvent) {
     e.preventDefault();
     setError("");
     if (!title.trim()) {
-      setError("Title is required.");
+      setError("El título es obligatorio.");
       return;
     }
-    let parsed: URL;
-    try {
-      parsed = new URL(url);
-    } catch {
-      setError("Enter a valid URL (include https://).");
-      return;
-    }
-    if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
-      setError("Only http and https URLs are allowed.");
-      return;
+
+    let finalUrl: string;
+
+    if (isPhoneOnly) {
+      // Registered business accounts get a real https:// payment link;
+      // everyone else enters a plain Colombian mobile number.
+      const trimmed = url.trim();
+      if (/^https?:\/\//i.test(trimmed)) {
+        try {
+          finalUrl = new URL(trimmed).toString();
+        } catch {
+          setError("Ingresa un número de celular válido.");
+          return;
+        }
+      } else {
+        const digitsOnly = trimmed.replace(/[\s-]/g, "");
+        if (!/^\d{10}$/.test(digitsOnly)) {
+          setError("Ingresa un número de celular válido.");
+          return;
+        }
+        finalUrl = trimmed;
+      }
+    } else {
+      let parsed: URL;
+      try {
+        parsed = new URL(url);
+      } catch {
+        setError("Ingresa una URL válida (incluye https://).");
+        return;
+      }
+      if (parsed.protocol !== "http:" && parsed.protocol !== "https:") {
+        setError("Solo se permiten URLs http y https.");
+        return;
+      }
+      finalUrl = parsed.toString();
     }
 
     setSaving(true);
     try {
       await onSubmit({
         title: title.trim(),
-        url: parsed.toString(),
+        url: finalUrl,
         iconKey,
       });
       onOpenChange(false);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to save.");
+      setError(err instanceof Error ? err.message : "No se pudo guardar.");
       setSaving(false);
     }
   }
@@ -93,14 +120,14 @@ export function LinkEditorDialog({
       <DialogContent className="max-h-[90vh] overflow-y-auto">
         <form onSubmit={handleSave}>
           <DialogHeader>
-            <DialogTitle>{initial ? "Edit link" : "Add link"}</DialogTitle>
+            <DialogTitle>{initial ? "Editar enlace" : "Agregar enlace"}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="link-title">Title</Label>
+              <Label htmlFor="link-title">Título</Label>
               <Input
                 id="link-title"
-                placeholder="My portfolio"
+                placeholder="Mi portafolio"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 autoFocus
@@ -108,11 +135,13 @@ export function LinkEditorDialog({
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="link-url">URL</Label>
+              <Label htmlFor="link-url">
+                {isPhoneOnly ? "Número de celular" : "URL"}
+              </Label>
               <Input
                 id="link-url"
-                type="url"
-                placeholder="https://example.com"
+                type={isPhoneOnly ? "tel" : "url"}
+                placeholder={isPhoneOnly ? "300 123 4567" : "https://ejemplo.com"}
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 required
@@ -122,10 +151,10 @@ export function LinkEditorDialog({
             {/* Icon picker */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label>Icon</Label>
+                <Label>Ícono</Label>
                 {detected && !iconKey && (
                   <span className="text-xs text-muted-foreground">
-                    Auto-detected:{" "}
+                    Detectado automáticamente:{" "}
                     <span className="font-medium text-foreground">
                       {ICON_OPTIONS.find((o) => o.key === detected)?.label}
                     </span>
@@ -137,7 +166,7 @@ export function LinkEditorDialog({
                 <button
                   type="button"
                   onClick={() => setIconKey(null)}
-                  title="Auto-detect from URL"
+                  title="Detectar automáticamente desde la URL"
                   className={cn(
                     "flex h-10 w-10 items-center justify-center rounded-md border text-[10px] font-medium transition-colors",
                     iconKey === null
@@ -165,8 +194,8 @@ export function LinkEditorDialog({
                 ))}
               </div>
               <p className="text-xs text-muted-foreground">
-                Pick &ldquo;Auto&rdquo; to detect the icon from the URL, or
-                choose one to override.
+                Elige &ldquo;Auto&rdquo; para detectar el ícono desde la URL, o
+                selecciona uno para sustituirlo.
               </p>
             </div>
 
@@ -179,10 +208,10 @@ export function LinkEditorDialog({
               onClick={() => onOpenChange(false)}
               disabled={saving}
             >
-              Cancel
+              Cancelar
             </Button>
             <Button type="submit" disabled={saving}>
-              {saving ? "Saving..." : "Save"}
+              {saving ? "Guardando..." : "Guardar"}
             </Button>
           </DialogFooter>
         </form>

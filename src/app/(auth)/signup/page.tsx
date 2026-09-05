@@ -7,10 +7,10 @@ export default function SignupPage() {
       <div className="w-full max-w-md space-y-6">
         <div className="text-center">
           <Link href="/">
-            <h1 className="text-2xl font-bold">LinkFig</h1>
+            <h1 className="text-2xl font-bold">LinkaMiNegocio</h1>
           </Link>
           <p className="mt-2 text-sm text-muted-foreground">
-            Create an account to get started.
+            Crea una cuenta para comenzar.
           </p>
         </div>
 

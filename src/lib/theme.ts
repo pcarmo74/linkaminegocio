@@ -88,15 +88,15 @@ export const THEME_PRESETS: Record<ThemePreset, ProfileTheme> = {
 export const DEFAULT_THEME: ProfileTheme = THEME_PRESETS.minimal;
 
 export const THEME_OPTIONS: { id: ThemePreset; label: string }[] = [
-  { id: "minimal", label: "Minimal" },
-  { id: "sunset", label: "Sunset" },
-  { id: "neon", label: "Neon" },
+  { id: "minimal", label: "Minimalista" },
+  { id: "sunset", label: "Atardecer" },
+  { id: "neon", label: "Neón" },
   { id: "mono", label: "Mono" },
   { id: "pastel", label: "Pastel" },
   { id: "aurora", label: "Aurora" },
-  { id: "brutalist", label: "Brutalist" },
-  { id: "midnight", label: "Midnight" },
-  { id: "earth", label: "Earth" },
+  { id: "brutalist", label: "Brutalista" },
+  { id: "midnight", label: "Medianoche" },
+  { id: "earth", label: "Tierra" },
 ];
 
 export interface ProfileCssVars {

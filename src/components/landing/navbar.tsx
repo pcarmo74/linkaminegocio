@@ -40,7 +40,7 @@ export function Navbar() {
             href="/"
             className="font-heading text-3xl font-bold text-[#1E2330]"
           >
-            LinkFig
+            LinkaMiNegocio
           </Link>
 
           {/* Desktop nav */}
@@ -49,19 +49,19 @@ export function Navbar() {
               href="#features"
               className="text-xl font-medium text-[#1E2330] transition-opacity hover:opacity-60"
             >
-              Features
+              Funciones
             </a>
             <a
               href="#pricing"
               className="text-xl font-medium text-[#1E2330] transition-opacity hover:opacity-60"
             >
-              Pricing
+              Precios
             </a>
             <a
               href="#faq"
               className="text-xl font-medium text-[#1E2330] transition-opacity hover:opacity-60"
             >
-              FAQ
+              Preguntas frecuentes
             </a>
           </nav>
 
@@ -74,7 +74,7 @@ export function Navbar() {
                     href="/dashboard"
                     className="rounded-full bg-[#1E2330] px-7 py-3 text-xl font-semibold text-white transition-transform hover:scale-[1.02]"
                   >
-                    Dashboard
+                    Panel
                   </Link>
                 ) : (
                   <>
@@ -82,13 +82,13 @@ export function Navbar() {
                       href="/login"
                       className="rounded-full bg-[#F4F4F5] px-7 py-3 text-xl font-semibold text-[#1E2330] transition-colors hover:bg-[#E9E9EB]"
                     >
-                      Log in
+                      Iniciar sesión
                     </Link>
                     <Link
                       href="/signup"
                       className="rounded-full bg-[#1E2330] px-7 py-3 text-xl font-semibold text-white transition-transform hover:scale-[1.02]"
                     >
-                      Sign up
+                      Registrarte
                     </Link>
                   </>
                 )}
@@ -100,7 +100,7 @@ export function Navbar() {
           <button
             className="flex items-center justify-center text-[#1E2330] md:hidden"
             onClick={() => setOpen(!open)}
-            aria-label="Toggle menu"
+            aria-label="Alternar menú"
           >
             {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -115,21 +115,21 @@ export function Navbar() {
                 onClick={() => setOpen(false)}
                 className="text-xl font-medium text-[#1E2330] transition-opacity hover:opacity-60"
               >
-                Features
+                Funciones
               </a>
               <a
                 href="#pricing"
                 onClick={() => setOpen(false)}
                 className="text-xl font-medium text-[#1E2330] transition-opacity hover:opacity-60"
               >
-                Pricing
+                Precios
               </a>
               <a
                 href="#faq"
                 onClick={() => setOpen(false)}
                 className="text-xl font-medium text-[#1E2330] transition-opacity hover:opacity-60"
               >
-                FAQ
+                Preguntas frecuentes
               </a>
               {!loading && (
                 <>
@@ -138,7 +138,7 @@ export function Navbar() {
                       href="/dashboard"
                       className="w-full rounded-full bg-[#1E2330] px-7 py-3 text-center text-xl font-semibold text-white"
                     >
-                      Dashboard
+                      Panel
                     </Link>
                   ) : (
                     <div className="flex flex-col gap-2">
@@ -146,13 +146,13 @@ export function Navbar() {
                         href="/login"
                         className="w-full rounded-full bg-[#F4F4F5] px-7 py-3 text-center text-xl font-semibold text-[#1E2330]"
                       >
-                        Log in
+                        Iniciar sesión
                       </Link>
                       <Link
                         href="/signup"
                         className="w-full rounded-full bg-[#1E2330] px-7 py-3 text-center text-xl font-semibold text-white"
                       >
-                        Sign up
+                        Registrarte
                       </Link>
                     </div>
                   )}

@@ -21,10 +21,9 @@ const SOURCE_OPTIONS: { value: RoutingSource; label: string }[] = [
   { value: "linkedin", label: "LinkedIn" },
   { value: "instagram", label: "Instagram" },
   { value: "tiktok", label: "TikTok" },
-  { value: "skool", label: "Skool" },
-  { value: "email", label: "Email" },
-  { value: "direct", label: "Direct" },
-  { value: "other", label: "Other" },
+  { value: "email", label: "Correo" },
+  { value: "direct", label: "Directo" },
+  { value: "other", label: "Otro" },
 ];
 
 interface Props {
@@ -86,16 +85,16 @@ export function RoutingDrawer({ open, onOpenChange, link, onSave }: Props) {
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="right" className="w-full sm:max-w-lg">
         <SheetHeader>
-          <SheetTitle>Smart Routing</SheetTitle>
+          <SheetTitle>Enrutamiento Inteligente</SheetTitle>
           <SheetDescription>
-            Configure how &ldquo;{link.title}&rdquo; is positioned based on
-            where visitors come from.
+            Configura cómo se posiciona &ldquo;{link.title}&rdquo; según de
+            dónde vienen tus visitantes.
           </SheetDescription>
         </SheetHeader>
 
         <div className="flex-1 space-y-6 overflow-y-auto px-1 py-6">
           <div className="space-y-2">
-            <Label>Default position (when no rule matches)</Label>
+            <Label>Posición predeterminada (cuando ninguna regla aplica)</Label>
             <Input
               type="number"
               min={1}
@@ -107,13 +106,13 @@ export function RoutingDrawer({ open, onOpenChange, link, onSave }: Props) {
               }
             />
             <p className="text-xs text-muted-foreground">
-              Position in the link list when no routing rule applies.
+              Posición en la lista de enlaces cuando no aplica ninguna regla de enrutamiento.
             </p>
           </div>
 
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <Label>Routing rules</Label>
+              <Label>Reglas de enrutamiento</Label>
               <Button
                 type="button"
                 variant="outline"
@@ -121,14 +120,14 @@ export function RoutingDrawer({ open, onOpenChange, link, onSave }: Props) {
                 onClick={addRule}
               >
                 <Plus className="mr-1 h-3 w-3" />
-                Add rule
+                Agregar regla
               </Button>
             </div>
 
             {rules.length === 0 ? (
               <p className="rounded-lg border border-dashed p-6 text-center text-sm text-muted-foreground">
-                No rules yet. Add a rule to prioritize this link for visitors
-                from specific sources.
+                Aún no hay reglas. Agrega una regla para priorizar este
+                enlace según de dónde vienen tus visitantes.
               </p>
             ) : (
               <div className="space-y-3">
@@ -179,7 +178,7 @@ export function RoutingDrawer({ open, onOpenChange, link, onSave }: Props) {
                         </div>
                       </div>
                       <Input
-                        placeholder="Label (e.g. YouTube fans)"
+                        placeholder="Etiqueta (ej. seguidores de YouTube)"
                         value={rule.label}
                         onChange={(e) =>
                           updateRule(index, "label", e.target.value)
@@ -192,7 +191,7 @@ export function RoutingDrawer({ open, onOpenChange, link, onSave }: Props) {
                       variant="ghost"
                       size="icon"
                       onClick={() => removeRule(index)}
-                      aria-label="Remove rule"
+                      aria-label="Eliminar regla"
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -205,7 +204,7 @@ export function RoutingDrawer({ open, onOpenChange, link, onSave }: Props) {
 
         <SheetFooter>
           <Button onClick={handleSave} disabled={saving} className="w-full">
-            {saving ? "Saving..." : "Save routing"}
+            {saving ? "Guardando..." : "Guardar enrutamiento"}
           </Button>
         </SheetFooter>
       </SheetContent>

@@ -6,8 +6,11 @@
  * - `<LinkIcon iconKey="youtube" />` renders the right SVG.
  * - `ICON_OPTIONS` is the ordered list shown in the picker UI.
  *
- * All icons are inline SVGs that inherit `currentColor` so they look correct
- * on any button background (light, dark, soft, etc.).
+ * Most icons are inline SVGs that inherit `currentColor` so they look correct
+ * on any button background (light, dark, soft, etc.). The three payment-app
+ * badges (Nequi, Bancolombia, Daviplata) are the exception — they render as
+ * fixed-color brand badges instead, since a colored badge is how those apps
+ * are recognized, not a currentColor-tinted mark.
  */
 
 import type { ComponentType, SVGProps } from "react";
@@ -16,20 +19,18 @@ export type IconKey =
   | "youtube"
   | "instagram"
   | "tiktok"
-  | "twitter"
-  | "threads"
   | "facebook"
   | "linkedin"
-  | "pinterest"
-  | "skool"
-  | "discord"
-  | "twitch"
-  | "github"
-  | "calendly"
-  | "substack"
-  | "medium"
-  | "spotify"
-  | "apple-music"
+  | "whatsapp"
+  | "location"
+  | "menu"
+  | "bookings"
+  | "catalog"
+  | "service-request"
+  | "portfolio"
+  | "nequi"
+  | "bancolombia"
+  | "daviplata"
   | "email"
   | "phone"
   | "website";
@@ -64,18 +65,6 @@ const Tiktok: IconComponent = (p) => (
   </svg>
 );
 
-const Twitter: IconComponent = (p) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...p}>
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231 5.45-6.231zm-1.161 17.52h1.833L7.084 4.126H5.117l11.966 15.644z" />
-  </svg>
-);
-
-const Threads: IconComponent = (p) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...p}>
-    <path d="M12.18 21.5h-.04c-3.06-.02-5.42-1.04-7-3.04-1.41-1.78-2.13-4.25-2.16-7.36 0-3.1.74-5.58 2.15-7.36 1.58-2 3.94-3.02 7-3.04h.04c2.34.02 4.3.62 5.82 1.79 1.42 1.1 2.43 2.66 2.97 4.65l-2 .57c-.94-3.4-3.34-5.13-7.13-5.16h-.07c-2.15.04-3.78.7-4.83 1.97-.99 1.18-1.5 2.91-1.51 5.13.01 2.22.52 3.95 1.51 5.13 1.05 1.27 2.68 1.93 4.83 1.97h.07c1.92-.01 3.19-.46 4.25-1.5.65-.65 1-1.42 1.16-2.27-.69-.45-1.62-.69-2.7-.69-1.51 0-2.51.6-2.51 1.6 0 .43.21.79.6 1.05-.46.16-1.02.21-1.59.05-1.46-.4-2.06-1.6-2.06-2.85 0-2.07 1.95-3.4 4.97-3.4 1.5 0 2.85.27 3.95.79.13-.86.13-1.7-.04-2.5l1.97-.43c.27 1.27.27 2.5 0 3.7 1.42.93 2.18 2.36 2.18 4.18 0 3.31-2.69 5.5-7.18 5.5z" />
-  </svg>
-);
-
 const Facebook: IconComponent = (p) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...p}>
     <path d="M22 12c0-5.5-4.5-10-10-10S2 6.5 2 12c0 5 3.7 9.1 8.4 9.9V14.9H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.3v6.9C18.3 21.1 22 17 22 12z" />
@@ -88,65 +77,108 @@ const Linkedin: IconComponent = (p) => (
   </svg>
 );
 
-const Pinterest: IconComponent = (p) => (
+const Whatsapp: IconComponent = (p) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...p}>
-    <path d="M12 0a12 12 0 0 0-4.4 23.2c-.1-1-.2-2.5 0-3.6.2-.9 1.4-5.9 1.4-5.9s-.4-.7-.4-1.8c0-1.7 1-3 2.2-3 1 0 1.5.8 1.5 1.7 0 1-.7 2.6-1 4-.3 1.2.6 2.2 1.8 2.2 2.2 0 3.8-2.3 3.8-5.6 0-3-2.1-5-5.1-5-3.5 0-5.5 2.6-5.5 5.3 0 1 .4 2.2.9 2.8.1.1.1.2.1.3l-.3 1.4c-.1.2-.2.3-.4.2-1.5-.7-2.4-2.9-2.4-4.6 0-3.8 2.7-7.2 7.9-7.2 4.1 0 7.3 3 7.3 6.9 0 4.1-2.6 7.5-6.2 7.5-1.2 0-2.4-.6-2.7-1.4l-.7 2.9c-.3 1-1 2.3-1.5 3A12 12 0 1 0 12 0z" />
+    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.77.46 3.45 1.32 4.94L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.11c-.24.68-1.4 1.32-1.93 1.4-.5.08-1.11.11-1.79-.11-.41-.13-.94-.3-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.74-2.09 1-2.38.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.57.81 1.98.88 2.12.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.61-.07.16-.19.68-.79.86-1.06.19-.28.37-.23.61-.14.24.09 1.55.73 1.82.86.27.14.45.2.51.31.07.11.07.63-.17 1.31z" />
   </svg>
 );
 
-const Skool: IconComponent = (p) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...p}>
-    {/* Stylised "sk" wordmark approximating the Skool logo */}
-    <path d="M7.4 5.4c-2.3 0-3.9 1.3-3.9 3.2 0 1.7 1.1 2.5 3.5 3 1.6.4 2 .7 2 1.3 0 .7-.6 1-1.7 1-1.3 0-2.1-.4-2.5-1.4l-2.2.9c.6 1.7 2.3 2.6 4.7 2.6 2.5 0 4.2-1.3 4.2-3.3 0-1.7-1-2.5-3.4-3.1-1.7-.4-2.1-.6-2.1-1.2 0-.6.5-.9 1.4-.9 1 0 1.7.4 2 1.2l2.2-.8c-.6-1.5-2-2.5-4.2-2.5z" />
-    <path d="M14.2 4.5h2.4v6.6l3.2-3.4h2.9l-3.7 3.8 3.9 4.9h-2.9l-3.4-4.5v4.5h-2.4V4.5z" />
+const Location: IconComponent = (p) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}>
+    <path d="M21 10c0 6.5-9 12-9 12s-9-5.5-9-12a9 9 0 0 1 18 0z" />
+    <circle cx="12" cy="10" r="3" />
   </svg>
 );
 
-const Discord: IconComponent = (p) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...p}>
-    <path d="M20.3 4.4A18.5 18.5 0 0 0 15.7 3l-.2.4a17 17 0 0 1 4.1 1.3 14.3 14.3 0 0 0-9.2-1.7L9.7 3a18.6 18.6 0 0 0-4.6 1.4C2 9 1.3 13.5 1.7 17.9a18.7 18.7 0 0 0 5.7 2.9l1.2-1.6c-.9-.3-1.7-.7-2.5-1.2l.4-.3a13.4 13.4 0 0 0 11 0l.4.3-2.5 1.2 1.2 1.6a18.6 18.6 0 0 0 5.7-2.9c.5-5.1-.7-9.6-2.5-13.5zM8.5 15.4c-1.1 0-2-1-2-2.3s.9-2.3 2-2.3 2 1 2 2.3-.9 2.3-2 2.3zm6.9 0c-1.1 0-2-1-2-2.3s.9-2.3 2-2.3 2 1 2 2.3-.9 2.3-2 2.3z" />
+const Menu: IconComponent = (p) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}>
+    <path d="M3 2v7c0 1.1.9 2 2 2s2-.9 2-2V2" />
+    <path d="M5 11v11" />
+    <path d="M19 2c-2 3-3 5-3 8a3 3 0 0 0 3 3v9" />
   </svg>
 );
 
-const Twitch: IconComponent = (p) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...p}>
-    <path d="M2.149 0L.508 4.105V20.36h5.61V24h3.276l3.282-3.64h4.464l6.143-6.144V0H2.149zm2.187 2.187h17.476v10.943l-3.282 3.282h-5.464l-3.282 3.282v-3.282H4.336V2.187zm6.554 10.943h2.187V6.553h-2.187v6.577zm5.464 0h2.187V6.553h-2.187v6.577z" />
+const Bookings: IconComponent = (p) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}>
+    <rect x="3" y="4" width="18" height="18" rx="2" />
+    <path d="M16 2v4" />
+    <path d="M8 2v4" />
+    <path d="M3 10h18" />
   </svg>
 );
 
-const Github: IconComponent = (p) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...p}>
-    <path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6V21c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2 0 1.9 1.2 1.9 1.2 1.1 1.9 2.9 1.4 3.6 1 .1-.8.4-1.4.8-1.7-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2C5.6 7 5.2 5.8 5.7 4.2c0 0 1-.3 3.3 1.2a11.2 11.2 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.5 1.6.1 2.8 0 3.1.8.8 1.2 1.9 1.2 3.2 0 4.7-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.3v3.4c0 .3.2.7.8.6A12 12 0 0 0 12 .3z" />
+const Catalog: IconComponent = (p) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}>
+    <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+    <path d="M3 6h18" />
+    <path d="M16 10a4 4 0 0 1-8 0" />
   </svg>
 );
 
-const Calendly: IconComponent = (p) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...p}>
-    <path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zM7 12h5v5H7v-5z" />
+const ServiceRequest: IconComponent = (p) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}>
+    <rect x="8" y="2" width="8" height="4" rx="1" />
+    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+    <path d="M9 12h6" />
+    <path d="M9 16h6" />
   </svg>
 );
 
-const Substack: IconComponent = (p) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...p}>
-    <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z" />
+const Portfolio: IconComponent = (p) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}>
+    <rect x="3" y="3" width="14" height="14" rx="2" />
+    <rect x="7" y="7" width="14" height="14" rx="2" />
   </svg>
 );
 
-const Medium: IconComponent = (p) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...p}>
-    <path d="M13.54 12c0 3.04-2.42 5.5-5.4 5.5S2.7 15.04 2.7 12s2.42-5.5 5.4-5.5 5.4 2.46 5.4 5.5zm5.93 0c0 2.86-1.21 5.18-2.7 5.18-1.5 0-2.7-2.32-2.7-5.18s1.21-5.18 2.7-5.18 2.7 2.32 2.7 5.18zM22 12c0 2.56-.42 4.64-.95 4.64s-.95-2.08-.95-4.64.42-4.64.95-4.64.95 2.08.95 4.64z" />
+const Nequi: IconComponent = (p) => (
+  <svg viewBox="0 0 24 24" {...p}>
+    <rect x="1" y="1" width="22" height="22" rx="6" fill="#FF0075" />
+    <text
+      x="12"
+      y="16.5"
+      textAnchor="middle"
+      fontSize="13"
+      fontWeight="700"
+      fontFamily="system-ui, sans-serif"
+      fill="#ffffff"
+    >
+      N
+    </text>
   </svg>
 );
 
-const Spotify: IconComponent = (p) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...p}>
-    <path d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24zm5.5 17.3a.8.8 0 0 1-1 .3c-2.8-1.7-6.4-2.1-10.6-1.1a.8.8 0 1 1-.4-1.4c4.6-1.1 8.5-.6 11.7 1.3.3.2.4.6.3.9zm1.5-3.3a.9.9 0 0 1-1.3.3c-3.3-2-8.2-2.6-12.1-1.5a.9.9 0 1 1-.5-1.7c4.4-1.3 9.9-.6 13.6 1.7.5.2.6.7.3 1.2zm.1-3.4c-3.9-2.3-10.4-2.5-14.1-1.4a1.1 1.1 0 1 1-.6-2c4.3-1.3 11.5-1.1 16 1.5.5.3.7 1 .4 1.5-.3.5-1 .7-1.7.4z" />
+const Bancolombia: IconComponent = (p) => (
+  <svg viewBox="0 0 24 24" {...p}>
+    <rect x="1" y="1" width="22" height="22" rx="6" fill="#FFDD00" />
+    <text
+      x="12"
+      y="16.5"
+      textAnchor="middle"
+      fontSize="13"
+      fontWeight="700"
+      fontFamily="system-ui, sans-serif"
+      fill="#1a1a1a"
+    >
+      B
+    </text>
   </svg>
 );
 
-const AppleMusic: IconComponent = (p) => (
-  <svg viewBox="0 0 24 24" fill="currentColor" {...p}>
-    <path d="M19.5 2A2.5 2.5 0 0 1 22 4.5v15a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 19.5v-15A2.5 2.5 0 0 1 4.5 2h15zm-9 4.5v8.6a2.5 2.5 0 1 0 1.5 2.3V9.7l5.5-1.5v5.4a2.5 2.5 0 1 0 1.5 2.3V5L10.5 6.5z" />
+const Daviplata: IconComponent = (p) => (
+  <svg viewBox="0 0 24 24" {...p}>
+    <rect x="1" y="1" width="22" height="22" rx="6" fill="#EE1C25" />
+    <text
+      x="12"
+      y="16.5"
+      textAnchor="middle"
+      fontSize="13"
+      fontWeight="700"
+      fontFamily="system-ui, sans-serif"
+      fill="#ffffff"
+    >
+      D
+    </text>
   </svg>
 );
 
@@ -192,18 +224,6 @@ const ICON_REGISTRY: Record<IconKey, IconDefinition> = {
     hostPatterns: ["tiktok.com"],
     Component: Tiktok,
   },
-  twitter: {
-    key: "twitter",
-    label: "X / Twitter",
-    hostPatterns: ["twitter.com", "x.com"],
-    Component: Twitter,
-  },
-  threads: {
-    key: "threads",
-    label: "Threads",
-    hostPatterns: ["threads.net"],
-    Component: Threads,
-  },
   facebook: {
     key: "facebook",
     label: "Facebook",
@@ -216,65 +236,65 @@ const ICON_REGISTRY: Record<IconKey, IconDefinition> = {
     hostPatterns: ["linkedin.com"],
     Component: Linkedin,
   },
-  pinterest: {
-    key: "pinterest",
-    label: "Pinterest",
-    hostPatterns: ["pinterest.com"],
-    Component: Pinterest,
+  whatsapp: {
+    key: "whatsapp",
+    label: "WhatsApp",
+    hostPatterns: ["wa.me", "whatsapp.com"],
+    Component: Whatsapp,
   },
-  skool: {
-    key: "skool",
-    label: "Skool",
-    hostPatterns: ["skool.com"],
-    Component: Skool,
+  location: {
+    key: "location",
+    label: "Ubicación",
+    hostPatterns: ["maps.google.com", "goo.gl", "maps.app.goo.gl"],
+    Component: Location,
   },
-  discord: {
-    key: "discord",
-    label: "Discord",
-    hostPatterns: ["discord.com", "discord.gg"],
-    Component: Discord,
+  menu: {
+    key: "menu",
+    label: "Menú",
+    hostPatterns: [],
+    Component: Menu,
   },
-  twitch: {
-    key: "twitch",
-    label: "Twitch",
-    hostPatterns: ["twitch.tv"],
-    Component: Twitch,
-  },
-  github: {
-    key: "github",
-    label: "GitHub",
-    hostPatterns: ["github.com"],
-    Component: Github,
-  },
-  calendly: {
-    key: "calendly",
-    label: "Calendly",
+  bookings: {
+    key: "bookings",
+    label: "Reservas",
     hostPatterns: ["calendly.com", "cal.com"],
-    Component: Calendly,
+    Component: Bookings,
   },
-  substack: {
-    key: "substack",
-    label: "Substack",
-    hostPatterns: ["substack.com"],
-    Component: Substack,
+  catalog: {
+    key: "catalog",
+    label: "Catálogo",
+    hostPatterns: [],
+    Component: Catalog,
   },
-  medium: {
-    key: "medium",
-    label: "Medium",
-    hostPatterns: ["medium.com"],
-    Component: Medium,
+  "service-request": {
+    key: "service-request",
+    label: "Solicitar servicio",
+    hostPatterns: [],
+    Component: ServiceRequest,
   },
-  spotify: {
-    key: "spotify",
-    label: "Spotify",
-    hostPatterns: ["spotify.com", "open.spotify.com"],
-    Component: Spotify,
+  portfolio: {
+    key: "portfolio",
+    label: "Portafolio",
+    hostPatterns: [],
+    Component: Portfolio,
   },
-  "apple-music": {
-    key: "apple-music",
-    label: "Apple Music",
-    hostPatterns: ["music.apple.com"],
-    Component: AppleMusic,
+  nequi: {
+    key: "nequi",
+    label: "Nequi",
+    hostPatterns: [],
+    Component: Nequi,
+  },
+  bancolombia: {
+    key: "bancolombia",
+    label: "Bancolombia",
+    hostPatterns: [],
+    Component: Bancolombia,
+  },
+  daviplata: {
+    key: "daviplata",
+    label: "Daviplata",
+    hostPatterns: [],
+    Component: Daviplata,
   },
   email: {
     key: "email",
@@ -334,6 +354,25 @@ export function resolveIconKey(
 ): IconKey {
   if (manualIconKey) return manualIconKey;
   return detectIconFromUrl(url) ?? "website";
+}
+
+/**
+ * Colombian payment apps that primarily identify personal accounts by phone
+ * number rather than a URL — Nequi, Bancolombia and DaviPlata all work via
+ * phone number or in-app QR for regular users; only registered business
+ * accounts get a real https:// payment-link URL. Editors and renderers use
+ * this to branch between phone-number and URL handling for these icons.
+ */
+export const PHONE_BASED_ICON_KEYS: readonly IconKey[] = [
+  "nequi",
+  "bancolombia",
+  "daviplata",
+];
+
+export function isPhoneBasedIcon(
+  iconKey: IconKey | null | undefined,
+): boolean {
+  return !!iconKey && PHONE_BASED_ICON_KEYS.includes(iconKey);
 }
 
 interface LinkIconProps extends SVGProps<SVGSVGElement> {

@@ -7,15 +7,15 @@ export function Footer() {
       <div className="container mx-auto max-w-5xl">
         <div className="grid gap-10 sm:grid-cols-3">
           <div>
-            <h3 className="font-heading mb-4 text-lg font-bold">LinkFig</h3>
+            <h3 className="font-heading mb-4 text-lg font-bold">LinkaMiNegocio</h3>
             <p className="text-sm text-white/60">
-              The free alternative to Linktree. One link for everything.
+              La alternativa gratuita a Linktree. Un solo enlace para todo.
             </p>
           </div>
 
           <div>
             <h4 className="mb-3 text-sm font-semibold text-white/80">
-              Product
+              Producto
             </h4>
             <ul className="space-y-2 text-sm text-white/50">
               <li>
@@ -23,7 +23,7 @@ export function Footer() {
                   href="#features"
                   className="transition-colors hover:text-white"
                 >
-                  Features
+                  Funciones
                 </a>
               </li>
               <li>
@@ -31,12 +31,12 @@ export function Footer() {
                   href="#pricing"
                   className="transition-colors hover:text-white"
                 >
-                  Pricing
+                  Precios
                 </a>
               </li>
               <li>
                 <a href="#faq" className="transition-colors hover:text-white">
-                  FAQ
+                  Preguntas frecuentes
                 </a>
               </li>
             </ul>
@@ -50,7 +50,7 @@ export function Footer() {
                   href="/terms"
                   className="transition-colors hover:text-white"
                 >
-                  Terms of Service
+                  Términos de Servicio
                 </Link>
               </li>
               <li>
@@ -58,7 +58,7 @@ export function Footer() {
                   href="/privacy"
                   className="transition-colors hover:text-white"
                 >
-                  Privacy Policy
+                  Política de Privacidad
                 </Link>
               </li>
             </ul>
@@ -66,7 +66,7 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 border-t border-white/10 pt-6 text-center text-sm text-white/40">
-          <span>&copy; {new Date().getFullYear()} LinkFig. It&apos;s Free.</span>
+          <span>&copy; {new Date().getFullYear()} LinkaMiNegocio. Es Gratis.</span>
           <SiteStatsDisplay />
         </div>
       </div>

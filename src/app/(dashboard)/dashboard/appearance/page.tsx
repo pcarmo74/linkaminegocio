@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useAuth } from "@/hooks/use-auth";
 import { getUserDoc, updateUserDoc } from "@/lib/firestore/users";
@@ -36,6 +36,7 @@ export default function AppearancePage() {
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [status, setStatus] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (authLoading || !user) return;
@@ -62,10 +63,10 @@ export default function AppearancePage() {
       const url = await uploadAvatar(user.uid, file);
       setAvatarUrl(url);
       await updateUserDoc(user.uid, { avatarUrl: url });
-      setStatus("Avatar updated.");
+      setStatus("Foto de perfil actualizada.");
     } catch (err) {
       setStatus(
-        err instanceof Error ? err.message : "Avatar upload failed.",
+        err instanceof Error ? err.message : "No se pudo subir la foto de perfil.",
       );
     } finally {
       setUploading(false);
@@ -89,30 +90,30 @@ export default function AppearancePage() {
         emailCaptureEnabled,
         emailCaptureMessage: emailCaptureMessage.trim(),
       });
-      setStatus("Saved.");
+      setStatus("Guardado.");
     } catch (err) {
-      setStatus(err instanceof Error ? err.message : "Save failed.");
+      setStatus(err instanceof Error ? err.message : "No se pudo guardar.");
     } finally {
       setSaving(false);
     }
   }
 
   if (authLoading || !doc) {
-    return <p className="text-muted-foreground">Loading...</p>;
+    return <p className="text-muted-foreground">Cargando...</p>;
   }
 
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight">Appearance</h2>
+        <h2 className="text-2xl font-bold tracking-tight">Apariencia</h2>
         <p className="text-muted-foreground">
-          Customize your public profile.
+          Personaliza tu perfil público.
         </p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Profile</CardTitle>
+          <CardTitle>Perfil</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center gap-4">
@@ -120,7 +121,7 @@ export default function AppearancePage() {
               {avatarUrl ? (
                 <Image
                   src={avatarUrl}
-                  alt="Avatar"
+                  alt="Foto de perfil"
                   width={80}
                   height={80}
                   unoptimized
@@ -134,20 +135,34 @@ export default function AppearancePage() {
             </div>
             <div>
               <Label htmlFor="avatar-upload" className="mb-1 block">
-                Profile picture
+                Foto de perfil
               </Label>
-              <Input
+              <input
+                ref={fileInputRef}
                 id="avatar-upload"
                 type="file"
                 accept="image/*"
                 onChange={handleAvatarChange}
                 disabled={uploading}
+                className="sr-only"
               />
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploading}
+              >
+                {uploading
+                  ? "Subiendo..."
+                  : avatarUrl
+                    ? "Cambiar foto"
+                    : "Subir foto"}
+              </Button>
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="display-name">Display name</Label>
+            <Label htmlFor="display-name">Nombre para mostrar</Label>
             <Input
               id="display-name"
               value={displayName}
@@ -157,13 +172,13 @@ export default function AppearancePage() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="bio">Bio</Label>
+            <Label htmlFor="bio">Biografía</Label>
             <Textarea
               id="bio"
               rows={3}
               value={bio}
               onChange={(e) => setBio(e.target.value.slice(0, BIO_MAX))}
-              placeholder="Tell visitors about yourself"
+              placeholder="Cuéntales a tus visitantes sobre ti"
             />
             <p className="text-xs text-muted-foreground">
               {bio.length}/{BIO_MAX}
@@ -174,7 +189,7 @@ export default function AppearancePage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Theme</CardTitle>
+          <CardTitle>Tema</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -210,7 +225,7 @@ export default function AppearancePage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Font</CardTitle>
+          <CardTitle>Fuente</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -233,7 +248,7 @@ export default function AppearancePage() {
                     className="mt-1 text-xs text-muted-foreground"
                     style={{ fontFamily: font.cssFamily }}
                   >
-                    The quick brown fox
+                    El veloz murciélago hindú
                   </div>
                 </button>
               );
@@ -244,12 +259,12 @@ export default function AppearancePage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Email Capture</CardTitle>
+          <CardTitle>Captura de Correos</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-sm text-muted-foreground">
-            Show an email signup form on your public profile to collect
-            subscriber emails.
+            Muestra un formulario de suscripción en tu perfil público para
+            recopilar correos de tus suscriptores.
           </p>
           <div className="flex items-center gap-3">
             <Checkbox
@@ -260,19 +275,19 @@ export default function AppearancePage() {
               }
             />
             <Label htmlFor="email-capture">
-              Enable email capture on my profile
+              Activar captura de correos en mi perfil
             </Label>
           </div>
           {emailCaptureEnabled && (
             <div className="space-y-2">
               <Label htmlFor="email-capture-message">
-                Message (optional)
+                Mensaje (opcional)
               </Label>
               <Input
                 id="email-capture-message"
                 value={emailCaptureMessage}
                 onChange={(e) => setEmailCaptureMessage(e.target.value)}
-                placeholder="Subscribe to get updates from me!"
+                placeholder="¡Suscríbete para recibir mis novedades!"
                 maxLength={120}
               />
             </div>
@@ -282,7 +297,7 @@ export default function AppearancePage() {
 
       <div className="flex items-center gap-3">
         <Button onClick={handleSave} disabled={saving}>
-          {saving ? "Saving..." : "Save changes"}
+          {saving ? "Guardando..." : "Guardar cambios"}
         </Button>
         {status && (
           <span className="text-sm text-muted-foreground">{status}</span>

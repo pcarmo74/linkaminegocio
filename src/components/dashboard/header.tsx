@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Menu, LogOut, User, CreditCard } from "lucide-react";
+import { Menu, LogOut, User } from "lucide-react";
 import { useAuth } from "@/hooks/use-auth";
 import { signOutUser } from "@/lib/firebase/auth";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -43,12 +43,12 @@ export function Header({ onMenuClick }: HeaderProps) {
         size="icon"
         className="md:hidden"
         onClick={onMenuClick}
-        aria-label="Open sidebar"
+        aria-label="Abrir menú lateral"
       >
         <Menu className="h-5 w-5" />
       </Button>
 
-      <h1 className="text-lg font-semibold">Dashboard</h1>
+      <h1 className="text-lg font-semibold">Panel</h1>
 
       <div className="ml-auto flex items-center gap-2">
         <ThemeToggle />
@@ -58,7 +58,7 @@ export function Header({ onMenuClick }: HeaderProps) {
               <Avatar className="h-9 w-9">
                 <AvatarImage
                   src={user?.photoURL ?? undefined}
-                  alt={user?.displayName ?? "User"}
+                  alt={user?.displayName ?? "Usuario"}
                 />
                 <AvatarFallback>{initials}</AvatarFallback>
               </Avatar>
@@ -66,25 +66,21 @@ export function Header({ onMenuClick }: HeaderProps) {
           <DropdownMenuContent align="end" className="w-48">
             <div className="px-2 py-1.5">
               <p className="text-sm font-medium">
-                {user?.displayName ?? "User"}
+                {user?.displayName ?? "Usuario"}
               </p>
               <p className="truncate text-xs text-muted-foreground">
                 {user?.email}
               </p>
             </div>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => router.push("/dashboard/settings")}>
               <User className="mr-2 h-4 w-4" />
-              Profile
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <CreditCard className="mr-2 h-4 w-4" />
-              Billing
+              Perfil
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleSignOut}>
               <LogOut className="mr-2 h-4 w-4" />
-              Sign Out
+              Cerrar Sesión
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

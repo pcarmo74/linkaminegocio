@@ -30,11 +30,11 @@ export function normalizeUsername(input: string): string {
 export function validateUsername(input: string): string | null {
   const name = normalizeUsername(input);
 
-  if (name.length < 3) return "Username must be at least 3 characters.";
-  if (name.length > 30) return "Username must be 30 characters or fewer.";
+  if (name.length < 3) return "El nombre de usuario debe tener al menos 3 caracteres.";
+  if (name.length > 30) return "El nombre de usuario debe tener 30 caracteres o menos.";
   if (!USERNAME_PATTERN.test(name)) {
-    return "Use lowercase letters, numbers, hyphens, or underscores only.";
+    return "Usa solo letras, números, guiones o guiones bajos.";
   }
-  if (RESERVED_USERNAMES.has(name)) return "That username is reserved.";
+  if (RESERVED_USERNAMES.has(name)) return "Ese nombre de usuario está reservado.";
   return null;
 }

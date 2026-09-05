@@ -55,7 +55,6 @@ export type RoutingSource =
   | "linkedin"
   | "instagram"
   | "tiktok"
-  | "skool"
   | "email"
   | "direct"
   | "other";

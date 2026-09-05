@@ -82,7 +82,7 @@ export async function claimUsername(
   await runTransaction(db, async (tx) => {
     const existing = await tx.get(usernameRef);
     if (existing.exists()) {
-      throw new Error("Username is already taken.");
+      throw new Error("Ese nombre de usuario ya fue tomado.");
     }
     tx.set(usernameRef, { uid, createdAt: new Date() });
     tx.update(userRef, { username, updatedAt: new Date() });

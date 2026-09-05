@@ -25,7 +25,7 @@ export function QrCodeDialog({ open, onOpenChange, url, username }: Props) {
     if (!canvas) return;
     const pngUrl = canvas.toDataURL("image/png");
     const link = document.createElement("a");
-    link.download = `linkfig-${username}.png`;
+    link.download = `linkaminegocio-${username}.png`;
     link.href = pngUrl;
     link.click();
   }
@@ -34,7 +34,7 @@ export function QrCodeDialog({ open, onOpenChange, url, username }: Props) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-sm">
         <DialogHeader>
-          <DialogTitle>Your LinkFig QR code</DialogTitle>
+          <DialogTitle>Your LinkaMiNegocio QR code</DialogTitle>
         </DialogHeader>
         <div
           ref={wrapRef}
@@ -50,7 +50,7 @@ export function QrCodeDialog({ open, onOpenChange, url, username }: Props) {
             {url}
           </p>
           <Button onClick={handleDownload} className="w-full">
-            Download PNG
+            Descargar PNG
           </Button>
         </div>
       </DialogContent>

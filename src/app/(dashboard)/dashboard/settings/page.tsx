@@ -6,6 +6,7 @@ import {
   EmailAuthProvider,
   reauthenticateWithCredential,
 } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
 import { useAuth } from "@/hooks/use-auth";
 import { getFirebaseAuth } from "@/lib/firebase/client";
 import { signOutUser } from "@/lib/firebase/auth";
@@ -22,6 +23,23 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+
+function getPasswordUpdateErrorMessage(err: unknown): string {
+  if (err instanceof FirebaseError) {
+    switch (err.code) {
+      case "auth/wrong-password":
+      case "auth/invalid-credential":
+        return "La contraseña actual es incorrecta.";
+      case "auth/requires-recent-login":
+        return "Por seguridad, debes iniciar sesión de nuevo antes de cambiar tu contraseña.";
+      case "auth/weak-password":
+        return "La nueva contraseña es demasiado débil. Usa al menos 6 caracteres.";
+      default:
+        return "No se pudo actualizar la contraseña.";
+    }
+  }
+  return "No se pudo actualizar la contraseña.";
+}
 
 export default function SettingsPage() {
   const { user, loading: authLoading } = useAuth();
@@ -66,10 +84,10 @@ export default function SettingsPage() {
         showEmail,
         showHandle,
       });
-      setProfileStatus("Saved.");
+      setProfileStatus("Guardado.");
     } catch (err) {
       setProfileStatus(
-        err instanceof Error ? err.message : "Save failed.",
+        err instanceof Error ? err.message : "No se pudo guardar.",
       );
     } finally {
       setProfileSaving(false);
@@ -82,17 +100,17 @@ export default function SettingsPage() {
     setPwError("");
 
     if (newPassword !== confirm) {
-      setPwError("New passwords do not match.");
+      setPwError("Las nuevas contraseñas no coinciden.");
       return;
     }
     if (newPassword.length < 6) {
-      setPwError("Password must be at least 6 characters.");
+      setPwError("La contraseña debe tener al menos 6 caracteres.");
       return;
     }
 
     const authUser = getFirebaseAuth().currentUser;
     if (!authUser || !authUser.email) {
-      setPwError("Not signed in.");
+      setPwError("No has iniciado sesión.");
       return;
     }
 
@@ -104,14 +122,12 @@ export default function SettingsPage() {
       );
       await reauthenticateWithCredential(authUser, credential);
       await updatePassword(authUser, newPassword);
-      setPwStatus("Password updated.");
+      setPwStatus("Contraseña actualizada.");
       setCurrentPassword("");
       setNewPassword("");
       setConfirm("");
     } catch (err) {
-      setPwError(
-        err instanceof Error ? err.message : "Couldn't update password.",
-      );
+      setPwError(getPasswordUpdateErrorMessage(err));
     } finally {
       setPwSaving(false);
     }
@@ -120,19 +136,19 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold tracking-tight">Settings</h2>
-        <p className="text-muted-foreground">Manage your account and profile.</p>
+        <h2 className="text-2xl font-bold tracking-tight">Configuración</h2>
+        <p className="text-muted-foreground">Administra tu cuenta y perfil.</p>
       </div>
 
       {/* Account */}
       <Card>
         <CardHeader>
-          <CardTitle>Account</CardTitle>
-          <CardDescription>Signed in as {user?.email}</CardDescription>
+          <CardTitle>Cuenta</CardTitle>
+          <CardDescription>Sesión iniciada como {user?.email}</CardDescription>
         </CardHeader>
         <CardContent>
           <Button variant="outline" onClick={() => signOutUser()}>
-            Sign out
+            Cerrar sesión
           </Button>
         </CardContent>
       </Card>
@@ -140,28 +156,28 @@ export default function SettingsPage() {
       {/* Profile settings */}
       <Card>
         <CardHeader>
-          <CardTitle>Profile</CardTitle>
+          <CardTitle>Perfil</CardTitle>
           <CardDescription>
-            These settings control what appears on your public page.
+            Estos ajustes controlan lo que aparece en tu página pública.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="display-name">Display name</Label>
+            <Label htmlFor="display-name">Nombre para mostrar</Label>
             <Input
               id="display-name"
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
-              placeholder="Your name"
+              placeholder="Tu nombre"
               maxLength={60}
             />
             <p className="text-xs text-muted-foreground">
-              The name shown on your public profile.
+              El nombre que se muestra en tu perfil público.
             </p>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="username">Username</Label>
+            <Label htmlFor="username">Nombre de usuario</Label>
             <Input
               id="username"
               value={username}
@@ -169,7 +185,7 @@ export default function SettingsPage() {
               className="opacity-60"
             />
             <p className="text-xs text-muted-foreground">
-              Your public URL: /u/{username}. Username changes coming soon.
+              Tu URL pública: /u/{username}. Cambiar tu nombre de usuario no está disponible por ahora.
             </p>
           </div>
 
@@ -180,7 +196,7 @@ export default function SettingsPage() {
               onCheckedChange={(checked) => setShowEmail(checked === true)}
             />
             <Label htmlFor="show-email" className="text-sm">
-              Show email on public profile
+              Mostrar correo electrónico en el perfil público
             </Label>
           </div>
 
@@ -191,13 +207,13 @@ export default function SettingsPage() {
               onCheckedChange={(checked) => setShowHandle(checked === true)}
             />
             <Label htmlFor="show-handle" className="text-sm">
-              Show @handle on public profile
+              Mostrar @usuario en el perfil público
             </Label>
           </div>
 
           <div className="flex items-center gap-3">
             <Button onClick={handleProfileSave} disabled={profileSaving}>
-              {profileSaving ? "Saving..." : "Save profile"}
+              {profileSaving ? "Guardando..." : "Guardar perfil"}
             </Button>
             {profileStatus && (
               <span className="text-sm text-muted-foreground">
@@ -211,12 +227,12 @@ export default function SettingsPage() {
       {/* Change password */}
       <Card>
         <CardHeader>
-          <CardTitle>Change password</CardTitle>
+          <CardTitle>Cambiar contraseña</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handlePasswordChange} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="current-password">Current password</Label>
+              <Label htmlFor="current-password">Contraseña actual</Label>
               <Input
                 id="current-password"
                 type="password"
@@ -226,7 +242,7 @@ export default function SettingsPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="new-password">New password</Label>
+              <Label htmlFor="new-password">Nueva contraseña</Label>
               <Input
                 id="new-password"
                 type="password"
@@ -237,7 +253,7 @@ export default function SettingsPage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="confirm-new-password">
-                Confirm new password
+                Confirmar nueva contraseña
               </Label>
               <Input
                 id="confirm-new-password"
@@ -250,7 +266,7 @@ export default function SettingsPage() {
             {pwStatus && <p className="text-sm text-green-600">{pwStatus}</p>}
             {pwError && <p className="text-sm text-destructive">{pwError}</p>}
             <Button type="submit" disabled={pwSaving}>
-              {pwSaving ? "Updating..." : "Update password"}
+              {pwSaving ? "Actualizando..." : "Actualizar contraseña"}
             </Button>
           </form>
         </CardContent>

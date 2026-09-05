@@ -14,12 +14,12 @@ import {
 } from "@/components/ui/sheet";
 
 const NAV_ITEMS = [
-  { href: "/dashboard", label: "Overview", icon: Home },
-  { href: "/dashboard/links", label: "Links", icon: LinkIcon },
-  { href: "/dashboard/appearance", label: "Appearance", icon: Palette },
-  { href: "/dashboard/subscribers", label: "Subscribers", icon: Mail },
-  { href: "/dashboard/settings", label: "Settings", icon: Settings },
-  { href: "/dashboard/help", label: "Help", icon: HelpCircle },
+  { href: "/dashboard", label: "Resumen", icon: Home },
+  { href: "/dashboard/links", label: "Enlaces", icon: LinkIcon },
+  { href: "/dashboard/appearance", label: "Apariencia", icon: Palette },
+  { href: "/dashboard/subscribers", label: "Suscriptores", icon: Mail },
+  { href: "/dashboard/settings", label: "Configuración", icon: Settings },
+  { href: "/dashboard/help", label: "Ayuda", icon: HelpCircle },
 ];
 
 interface SidebarProps {
@@ -34,7 +34,7 @@ function SidebarContent() {
     <div className="flex h-full flex-col">
       <div className="border-b px-6 py-4">
         <Link href="/" className="text-xl font-bold">
-          LinkFig
+          LinkaMiNegocio
         </Link>
       </div>
 
@@ -66,7 +66,7 @@ function SidebarContent() {
           onClick={() => signOutUser()}
         >
           <LogOut className="h-4 w-4" />
-          Sign Out
+          Cerrar Sesión
         </Button>
       </div>
     </div>
@@ -85,7 +85,7 @@ export function Sidebar({ open, onOpenChange }: SidebarProps) {
       <Sheet open={open} onOpenChange={onOpenChange}>
         <SheetContent side="left" className="w-64 p-0">
           <SheetHeader className="sr-only">
-            <SheetTitle>Navigation</SheetTitle>
+            <SheetTitle>Navegación</SheetTitle>
           </SheetHeader>
           <SidebarContent />
         </SheetContent>

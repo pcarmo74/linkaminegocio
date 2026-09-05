@@ -37,7 +37,7 @@ export function EmailCapture({ uid, message, buttonStyle }: Props) {
   if (status === "success") {
     return (
       <div className="w-full rounded-xl border border-current/10 px-6 py-4 text-center text-sm opacity-90">
-        Thanks for subscribing!
+        ¡Gracias por suscribirte!
       </div>
     );
   }
@@ -53,7 +53,7 @@ export function EmailCapture({ uid, message, buttonStyle }: Props) {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Your email address"
+          placeholder="Tu correo electrónico"
           className="min-w-0 flex-1 rounded-xl border border-current/20 bg-white/10 px-4 py-3 text-sm text-current placeholder:opacity-50 outline-none backdrop-blur-sm"
         />
         <button
@@ -61,12 +61,12 @@ export function EmailCapture({ uid, message, buttonStyle }: Props) {
           disabled={status === "loading"}
           className={`shrink-0 rounded-xl px-5 py-3 text-sm font-semibold transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 ${buttonStyle}`}
         >
-          {status === "loading" ? "..." : "Subscribe"}
+          {status === "loading" ? "..." : "Suscribirme"}
         </button>
       </div>
       {status === "error" && (
         <p className="text-center text-xs opacity-70">
-          Something went wrong. Please try again.
+          Algo salió mal. Por favor, intenta de nuevo.
         </p>
       )}
     </form>

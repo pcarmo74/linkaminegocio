@@ -18,11 +18,11 @@ export async function generateMetadata({
   const { username } = await params;
   const profile = await getProfileByUsername(username);
   if (!profile) {
-    return { title: "Profile not found" };
+    return { title: "Perfil no encontrado" };
   }
 
-  const title = `${profile.user.displayName || profile.user.username} (@${profile.user.username}) · LinkFig`;
-  const description = profile.user.bio || `Find ${profile.user.username} on LinkFig`;
+  const title = `${profile.user.displayName || profile.user.username} (@${profile.user.username}) · LinkaMiNegocio`;
+  const description = profile.user.bio || `Encuentra a ${profile.user.username} en LinkaMiNegocio`;
   const ogImage = profile.user.avatarUrl ?? undefined;
 
   return {
@@ -124,7 +124,7 @@ export default async function ProfilePage({ params }: PageProps) {
           href="/"
           className="mt-8 text-xs opacity-60 hover:opacity-100"
         >
-          Built with LinkFig
+          Hecho con LinkaMiNegocio
         </Link>
       </div>
     </main>

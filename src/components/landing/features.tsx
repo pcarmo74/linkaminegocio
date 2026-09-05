@@ -19,27 +19,27 @@ interface Feature {
 const features: Feature[] = [
   {
     Illustration: CustomizeIllustration,
-    title: "Create and customize your LinkFig in minutes",
+    title: "Crea y personaliza tu LinkaMiNegocio en minutos",
     description:
-      "Connect all your content across social media, websites, stores and more in one link in bio. Customize every detail with themes, custom fonts and colors to match your brand and drive more clicks.",
+      "Conecta todo tu contenido — redes sociales, sitios web, tiendas y más — en un solo enlace. Elige entre 9 temas y 8 fuentes prediseñadas para darle a tu página un estilo propio y generar más clics.",
     bg: "bg-[#E9C0E9]",
     textColor: "text-[#1E2330]",
     illustrationFirst: false,
   },
   {
     Illustration: ShareIllustration,
-    title: "Share your LinkFig anywhere you like!",
+    title: "¡Comparte tu LinkaMiNegocio donde quieras!",
     description:
-      "Add your unique LinkFig URL to all the platforms and places you find your audience. Then use your QR code to drive your offline traffic back to your link in bio.",
+      "Agrega tu URL única de LinkaMiNegocio en todas las plataformas donde está tu audiencia. Luego usa tu código QR para llevar también el tráfico fuera de línea a tu enlace.",
     bg: "bg-[#FFD966]",
     textColor: "text-[#1E2330]",
     illustrationFirst: true,
   },
   {
     Illustration: AnalyticsIllustration,
-    title: "Analyze your audience and keep them engaged",
+    title: "Analiza a tu audiencia y mantenla interesada",
     description:
-      "Track your engagement over time, monitor traffic sources and learn what's converting your audience. Make informed updates on the fly to keep them coming back.",
+      "Haz seguimiento a tu interacción con el tiempo, monitorea tus fuentes de tráfico y descubre qué está convirtiendo a tu audiencia. Actualiza tu perfil con información real para que sigan volviendo.",
     bg: "bg-[#1E2330]",
     textColor: "text-white",
     illustrationFirst: false,
@@ -84,7 +84,7 @@ export function Features() {
                       : "bg-[#1E2330] text-white"
                   }`}
                 >
-                  Create your LinkFig
+                  Crea tu LinkaMiNegocio
                 </CTALink>
               </div>
 

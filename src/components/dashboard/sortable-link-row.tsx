@@ -56,7 +56,7 @@ export function SortableLinkRow({
         className="cursor-grab touch-none text-muted-foreground"
         {...attributes}
         {...listeners}
-        aria-label="Drag to reorder"
+        aria-label="Arrastrar para reordenar"
       >
         <GripVertical className="h-5 w-5" />
       </button>
@@ -64,12 +64,12 @@ export function SortableLinkRow({
       <button
         type="button"
         onClick={() => onToggleFeatured(link.id, !link.featured)}
-        aria-label={link.featured ? "Unfeature link" : "Feature link"}
+        aria-label={link.featured ? "Quitar destacado" : "Destacar enlace"}
         aria-pressed={link.featured === true}
         title={
           link.featured
-            ? "Featured — click to remove highlight"
-            : "Feature this link (highlights it on your public profile)"
+            ? "Destacado — haz clic para quitar el resaltado"
+            : "Destaca este enlace (lo resalta en tu perfil público)"
         }
         className={cn(
           "flex h-10 w-10 shrink-0 items-center justify-center rounded-md transition-colors",
@@ -93,13 +93,12 @@ export function SortableLinkRow({
         <div className="truncate text-xs text-muted-foreground">{link.url}</div>
         <div className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
           <span>
-            {link.clicks} {link.clicks === 1 ? "click" : "clicks"}
+            {link.clicks} {link.clicks === 1 ? "clic" : "clics"}
           </span>
           {hasRules && (
             <span className="inline-flex items-center gap-0.5 rounded-full bg-primary/10 px-1.5 py-0.5 text-[10px] font-medium text-primary">
               <Zap className="h-2.5 w-2.5" />
-              {link.routing.rules.length} rule
-              {link.routing.rules.length !== 1 && "s"}
+              {link.routing.rules.length} {link.routing.rules.length === 1 ? "regla" : "reglas"}
             </span>
           )}
         </div>
@@ -109,14 +108,14 @@ export function SortableLinkRow({
         <Checkbox
           checked={link.active}
           onCheckedChange={(checked) => onToggle(link.id, checked === true)}
-          aria-label="Toggle link visibility"
+          aria-label="Alternar visibilidad del enlace"
         />
         <Button
           type="button"
           variant="ghost"
           size="icon"
           onClick={() => onRouting(link)}
-          aria-label="Smart routing"
+          aria-label="Enrutamiento inteligente"
           className={hasRules ? "text-primary" : ""}
         >
           <Zap className="h-4 w-4" />
@@ -126,7 +125,7 @@ export function SortableLinkRow({
           variant="ghost"
           size="icon"
           onClick={() => onEdit(link)}
-          aria-label="Edit link"
+          aria-label="Editar enlace"
         >
           <Pencil className="h-4 w-4" />
         </Button>
@@ -135,7 +134,7 @@ export function SortableLinkRow({
           variant="ghost"
           size="icon"
           onClick={() => onDelete(link.id)}
-          aria-label="Delete link"
+          aria-label="Eliminar enlace"
         >
           <Trash2 className="h-4 w-4" />
         </Button>

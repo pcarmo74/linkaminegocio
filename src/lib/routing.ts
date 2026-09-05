@@ -13,8 +13,6 @@ const REFERRER_MAP: Record<string, string> = {
   "l.instagram.com": "instagram",
   "tiktok.com": "tiktok",
   "vm.tiktok.com": "tiktok",
-  "skool.com": "skool",
-  "www.skool.com": "skool",
 };
 
 export function classifyReferrer(referrer: string): string {
@@ -40,7 +38,6 @@ export function detectSource(): string {
       "linkedin",
       "instagram",
       "tiktok",
-      "skool",
       "email",
     ];
     return knownSources.includes(normalized) ? normalized : "other";

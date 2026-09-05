@@ -46,7 +46,7 @@ export function RoutedLinks({ uid, links, buttonStyle }: Props) {
   return (
     <div className="flex w-full flex-col gap-3">
       {sortedLinks.length === 0 ? (
-        <p className="text-center text-sm opacity-70">No links yet.</p>
+        <p className="text-center text-sm opacity-70">Aún no hay enlaces.</p>
       ) : (
         sortedLinks.map((link, index) => (
           <LinkButton

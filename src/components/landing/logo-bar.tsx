@@ -1,19 +1,19 @@
 const userTypes = [
-  "creators",
-  "influencers",
-  "small businesses",
-  "athletes",
-  "musicians",
-  "podcasters",
-  "fashion designers",
-  "fitness coaches",
-  "streamers",
-  "vloggers",
-  "ecommerce sellers",
-  "writers",
-  "DJs",
-  "wellness leaders",
-  "photographers",
+  "emprendedores",
+  "restaurantes",
+  "tiendas",
+  "peluquerías",
+  "entrenadores",
+  "artesanos",
+  "fotógrafos",
+  "músicos",
+  "tutores",
+  "terapeutas",
+  "boutiques",
+  "gimnasios",
+  "consultores",
+  "food trucks",
+  "negocios locales",
 ];
 
 export function LogoBar() {
@@ -21,7 +21,7 @@ export function LogoBar() {
     <section className="overflow-hidden bg-white py-16 dark:bg-[#1E2330]">
       <div className="container mx-auto px-5 text-center">
         <h2 className="font-heading text-3xl font-bold tracking-tight text-[#1E2330] sm:text-4xl md:text-5xl dark:text-white">
-          The only <span className="italic">free</span> link in bio for
+          El único enlace en bio <span className="italic">gratis</span> para
         </h2>
       </div>
 

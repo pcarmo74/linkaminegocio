@@ -38,7 +38,7 @@ export default function SubscribersPage() {
   }, [authLoading, user]);
 
   const exportCsv = useCallback(() => {
-    const header = "Email,Subscribed At\n";
+    const header = "Correo,Fecha de suscripción\n";
     const rows = subscribers
       .map(
         (s) =>
@@ -49,28 +49,28 @@ export default function SubscribersPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "subscribers.csv";
+    a.download = "suscriptores.csv";
     a.click();
     URL.revokeObjectURL(url);
   }, [subscribers]);
 
   if (authLoading || loading) {
-    return <p className="text-muted-foreground">Loading...</p>;
+    return <p className="text-muted-foreground">Cargando...</p>;
   }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight">Subscribers</h2>
+          <h2 className="text-2xl font-bold tracking-tight">Suscriptores</h2>
           <p className="text-muted-foreground">
-            {subscribers.length} subscriber{subscribers.length !== 1 && "s"} collected via your profile.
+            {subscribers.length} {subscribers.length === 1 ? "suscriptor" : "suscriptores"} recopilados a través de tu perfil.
           </p>
         </div>
         {subscribers.length > 0 && (
           <Button variant="outline" onClick={exportCsv}>
             <Download className="mr-2 h-4 w-4" />
-            Export CSV
+            Exportar CSV
           </Button>
         )}
       </div>
@@ -79,20 +79,20 @@ export default function SubscribersPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Mail className="h-5 w-5" />
-            Email List
+            Lista de Correos
           </CardTitle>
         </CardHeader>
         <CardContent>
           {subscribers.length === 0 ? (
             <p className="py-8 text-center text-sm text-muted-foreground">
-              No subscribers yet. Enable email capture in{" "}
+              Aún no hay suscriptores. Activa la captura de correos en{" "}
               <a
                 href="/dashboard/appearance"
                 className="underline underline-offset-4 hover:text-foreground"
               >
-                Appearance
+                Apariencia
               </a>{" "}
-              to start collecting emails.
+              para empezar a recopilarlos.
             </p>
           ) : (
             <div className="divide-y">

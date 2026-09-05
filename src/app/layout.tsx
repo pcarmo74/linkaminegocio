@@ -21,11 +21,11 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: {
-    default: "LinkFig — One link for all your content",
-    template: "%s · LinkFig",
+    default: "LinkaMiNegocio — Un enlace para todo tu negocio",
+    template: "%s · LinkaMiNegocio",
   },
   description:
-    "The free alternative to Linktree. Unlimited links, custom themes, analytics, QR code — no paywall. Claim your username in 30 seconds.",
+    "La alternativa gratuita a Linktree. Enlaces ilimitados, temas, analítica, código QR — sin muros de pago. Reclama tu nombre de usuario en 30 segundos.",
 };
 
 export default function RootLayout({
@@ -34,7 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} antialiased`}
       >
