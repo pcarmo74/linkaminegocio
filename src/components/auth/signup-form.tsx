@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { FirebaseError } from "firebase/app";
 import { signUpWithEmail } from "@/lib/firebase/auth";
@@ -48,7 +48,10 @@ function getSignupErrorMessage(err: unknown): string {
 
 export function SignupForm() {
   const router = useRouter();
-  const [username, setUsername] = useState("");
+  const searchParams = useSearchParams();
+  const [username, setUsername] = useState(
+    () => searchParams.get("username")?.trim() ?? "",
+  );
   const [usernameState, setUsernameState] = useState<{
     status: "idle" | "checking" | "available" | "taken" | "invalid";
     message: string;
@@ -193,7 +196,7 @@ export function SignupForm() {
         <CardTitle>Reclama tu LinkaMiNegocio</CardTitle>
         <CardDescription>
           Elige un nombre de usuario. Obtendrás{" "}
-          <span className="font-mono">linkaminegocio.com/u/tunombre</span> gratis.
+          <span className="font-mono">linkaminegocio.com/u/tunegocio</span> gratis.
         </CardDescription>
       </CardHeader>
       <form onSubmit={handleSubmit}>
@@ -203,7 +206,7 @@ export function SignupForm() {
             <Input
               id="username"
               type="text"
-              placeholder="tunombre"
+              placeholder="tunegocio"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               autoComplete="username"
