@@ -56,6 +56,8 @@ export function LinkEditorDialog({
 
   const detected = detectIconFromUrl(url);
   const isPhoneOnly = isPhoneBasedIcon(iconKey);
+  const isEmailIcon = iconKey === "email";
+  const isPhoneIcon = iconKey === "phone";
 
   async function handleSave(e: React.FormEvent) {
     e.preventDefault();
@@ -86,6 +88,25 @@ export function LinkEditorDialog({
         }
         finalUrl = trimmed;
       }
+    } else if (isEmailIcon) {
+      const trimmed = url.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+        setError("Ingresa un correo electrónico válido.");
+        return;
+      }
+      finalUrl = trimmed;
+    } else if (isPhoneIcon) {
+      // General contact number — not tied to Colombia, so allow
+      // international format (optional leading +) and a looser
+      // minimum length than the strict 10-digit payment-app check above.
+      const trimmed = url.trim();
+      const hasValidChars = /^\+?[\d\s()-]+$/.test(trimmed);
+      const digitCount = trimmed.replace(/\D/g, "").length;
+      if (!hasValidChars || digitCount < 7) {
+        setError("Ingresa un número de teléfono válido.");
+        return;
+      }
+      finalUrl = trimmed;
     } else {
       let parsed: URL;
       try {
@@ -136,12 +157,30 @@ export function LinkEditorDialog({
             </div>
             <div className="space-y-2">
               <Label htmlFor="link-url">
-                {isPhoneOnly ? "Número de celular" : "URL"}
+                {isPhoneOnly
+                  ? "Número de celular"
+                  : isEmailIcon
+                    ? "Correo electrónico"
+                    : isPhoneIcon
+                      ? "Número de teléfono"
+                      : "URL"}
               </Label>
               <Input
                 id="link-url"
-                type={isPhoneOnly ? "tel" : "url"}
-                placeholder={isPhoneOnly ? "300 123 4567" : "https://ejemplo.com"}
+                type={
+                  isPhoneOnly || isPhoneIcon
+                    ? "tel"
+                    : isEmailIcon
+                      ? "email"
+                      : "url"
+                }
+                placeholder={
+                  isPhoneOnly || isPhoneIcon
+                    ? "300 123 4567"
+                    : isEmailIcon
+                      ? "tucorreo@ejemplo.com"
+                      : "https://ejemplo.com"
+                }
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 required

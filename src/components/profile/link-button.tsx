@@ -85,9 +85,19 @@ export function LinkButton({
     );
   }
 
+  // Email/phone icons store a plain address/number, not a scheme-prefixed
+  // URI — construct the mailto:/tel: link here so the device's mail/phone
+  // app opens correctly, without requiring the user to type the prefix.
+  let href = url;
+  if (resolvedKey === "email" && !/^mailto:/i.test(url)) {
+    href = `mailto:${url}`;
+  } else if (resolvedKey === "phone" && !/^tel:/i.test(url)) {
+    href = `tel:${url}`;
+  }
+
   return (
     <a
-      href={url}
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
       onClick={handleClick}
