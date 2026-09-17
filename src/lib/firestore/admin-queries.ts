@@ -1,13 +1,27 @@
 import "server-only";
 
 import { getAdminDb } from "@/lib/firebase/admin";
-import type { LinkDoc, UserDoc } from "@/types";
+import type { BusinessStatus, LinkDoc, UserDoc } from "@/types";
 import { DEFAULT_THEME } from "@/lib/theme";
+import { DEFAULT_BUSINESS_STATUS } from "@/lib/business-status";
 import { normalizeUsername } from "@/lib/username";
 
 interface ProfileData {
   user: UserDoc;
   links: LinkDoc[];
+}
+
+function serializeBusinessStatus(raw: unknown): BusinessStatus {
+  const data = (raw as Record<string, unknown>) ?? {};
+  return {
+    enabled: data.enabled === true,
+    type: (data.type as BusinessStatus["type"]) ?? DEFAULT_BUSINESS_STATUS.type,
+    message: typeof data.message === "string" ? data.message : "",
+    link: typeof data.link === "string" ? data.link : "",
+    updatedAt:
+      (data.updatedAt as { toDate?: () => Date } | undefined)?.toDate?.() ??
+      new Date(),
+  };
 }
 
 function serializeUser(uid: string, data: Record<string, unknown>): UserDoc {
@@ -28,6 +42,7 @@ function serializeUser(uid: string, data: Record<string, unknown>): UserDoc {
       typeof data.emailCaptureMessage === "string"
         ? data.emailCaptureMessage
         : "",
+    businessStatus: serializeBusinessStatus(data.businessStatus),
     photoURL: (data.photoURL as string | null) ?? null,
     stripeCustomerId: (data.stripeCustomerId as string | null) ?? null,
     subscriptionStatus:

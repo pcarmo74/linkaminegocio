@@ -13,6 +13,7 @@ import {
 import { getFirebaseDb } from "@/lib/firebase/client";
 import type { UserDoc } from "@/types";
 import { DEFAULT_THEME } from "@/lib/theme";
+import { DEFAULT_BUSINESS_STATUS } from "@/lib/business-status";
 import { normalizeUsername } from "@/lib/username";
 
 export async function createUserDoc(
@@ -30,6 +31,7 @@ export async function createUserDoc(
     fontFamily: "geist",
     emailCaptureEnabled: false,
     emailCaptureMessage: "",
+    businessStatus: DEFAULT_BUSINESS_STATUS,
     stripeCustomerId: null,
     subscriptionStatus: "inactive",
     subscriptionPriceId: null,

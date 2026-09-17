@@ -7,7 +7,18 @@ import { getUserDoc, updateUserDoc } from "@/lib/firestore/users";
 import { uploadAvatar } from "@/lib/firebase/storage";
 import { THEME_OPTIONS, THEME_PRESETS, DEFAULT_THEME } from "@/lib/theme";
 import { FONT_OPTIONS, DEFAULT_FONT } from "@/lib/fonts";
-import type { ProfileTheme, ThemePreset, FontFamily, UserDoc } from "@/types";
+import {
+  BUSINESS_STATUS_OPTIONS,
+  DEFAULT_BUSINESS_STATUS,
+} from "@/lib/business-status";
+import type {
+  BusinessStatus,
+  BusinessStatusType,
+  ProfileTheme,
+  ThemePreset,
+  FontFamily,
+  UserDoc,
+} from "@/types";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -33,6 +44,9 @@ export default function AppearancePage() {
   const [fontFamily, setFontFamily] = useState<FontFamily>(DEFAULT_FONT);
   const [emailCaptureEnabled, setEmailCaptureEnabled] = useState(false);
   const [emailCaptureMessage, setEmailCaptureMessage] = useState("");
+  const [businessStatus, setBusinessStatus] = useState<BusinessStatus>(
+    DEFAULT_BUSINESS_STATUS,
+  );
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [status, setStatus] = useState("");
@@ -51,6 +65,7 @@ export default function AppearancePage() {
       setFontFamily(d.fontFamily ?? DEFAULT_FONT);
       setEmailCaptureEnabled(d.emailCaptureEnabled ?? false);
       setEmailCaptureMessage(d.emailCaptureMessage ?? "");
+      setBusinessStatus(d.businessStatus ?? DEFAULT_BUSINESS_STATUS);
     })();
   }, [authLoading, user]);
 
@@ -89,6 +104,12 @@ export default function AppearancePage() {
         fontFamily,
         emailCaptureEnabled,
         emailCaptureMessage: emailCaptureMessage.trim(),
+        businessStatus: {
+          ...businessStatus,
+          message: businessStatus.message.trim(),
+          link: businessStatus.link.trim(),
+          updatedAt: new Date(),
+        },
       });
       setStatus("Guardado.");
     } catch (err) {
@@ -184,6 +205,91 @@ export default function AppearancePage() {
               {bio.length}/{BIO_MAX}
             </p>
           </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Aviso de estado del negocio</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <p className="text-sm text-muted-foreground">
+            Muestra un aviso destacado en tu perfil público para informar
+            cambios importantes: reubicación, reconstrucción, cierre
+            temporal, etc.
+          </p>
+          <div className="flex items-center gap-3">
+            <Checkbox
+              id="business-status-enabled"
+              checked={businessStatus.enabled}
+              onCheckedChange={(checked) =>
+                setBusinessStatus((prev) => ({
+                  ...prev,
+                  enabled: checked === true,
+                }))
+              }
+            />
+            <Label htmlFor="business-status-enabled">
+              Activar aviso de estado del negocio
+            </Label>
+          </div>
+          {businessStatus.enabled && (
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="business-status-type">Tipo de aviso</Label>
+                <select
+                  id="business-status-type"
+                  value={businessStatus.type}
+                  onChange={(e) =>
+                    setBusinessStatus((prev) => ({
+                      ...prev,
+                      type: e.target.value as BusinessStatusType,
+                    }))
+                  }
+                  className="h-9 w-full rounded-md border bg-background px-3 text-sm"
+                >
+                  {BUSINESS_STATUS_OPTIONS.map((opt) => (
+                    <option key={opt.id} value={opt.id}>
+                      {opt.emoji} {opt.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="business-status-message">
+                  Mensaje adicional (opcional)
+                </Label>
+                <Input
+                  id="business-status-message"
+                  value={businessStatus.message}
+                  onChange={(e) =>
+                    setBusinessStatus((prev) => ({
+                      ...prev,
+                      message: e.target.value,
+                    }))
+                  }
+                  placeholder="Ej: Escríbenos por WhatsApp para la dirección temporal"
+                  maxLength={200}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="business-status-link">Enlace (opcional)</Label>
+                <Input
+                  id="business-status-link"
+                  value={businessStatus.link}
+                  onChange={(e) =>
+                    setBusinessStatus((prev) => ({
+                      ...prev,
+                      link: e.target.value,
+                    }))
+                  }
+                  placeholder="https://maps.app.goo.gl/..."
+                />
+              </div>
+            </div>
+          )}
         </CardContent>
       </Card>
 

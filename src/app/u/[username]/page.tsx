@@ -7,6 +7,7 @@ import { themeToCssVars, buttonClassForStyle } from "@/lib/theme";
 import { getFontOption } from "@/lib/fonts";
 import { RoutedLinks } from "@/components/profile/routed-links";
 import { EmailCapture } from "@/components/profile/email-capture";
+import { BusinessStatusBanner } from "@/components/profile/business-status-banner";
 
 interface PageProps {
   params: Promise<{ username: string }>;
@@ -104,6 +105,10 @@ export default async function ProfilePage({ params }: PageProps) {
 
         {user.bio && (
           <p className="text-center text-sm opacity-90">{user.bio}</p>
+        )}
+
+        {user.businessStatus.enabled && (
+          <BusinessStatusBanner status={user.businessStatus} />
         )}
 
         <RoutedLinks

@@ -28,6 +28,22 @@ export type FontFamily =
   | "nunito"
   | "raleway";
 
+export type BusinessStatusType =
+  | "reconstruccion"
+  | "demolicion"
+  | "temporal"
+  | "buscando"
+  | "cerrado"
+  | "reabierto";
+
+export interface BusinessStatus {
+  enabled: boolean;
+  type: BusinessStatusType;
+  message: string;
+  link: string;
+  updatedAt: Date;
+}
+
 export interface UserDoc {
   uid: string;
   email: string;
@@ -41,6 +57,7 @@ export interface UserDoc {
   fontFamily: FontFamily;
   emailCaptureEnabled: boolean;
   emailCaptureMessage: string;
+  businessStatus: BusinessStatus;
   photoURL: string | null;
   stripeCustomerId: string | null;
   subscriptionStatus: SubscriptionStatus;
